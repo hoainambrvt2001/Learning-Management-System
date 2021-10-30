@@ -57,6 +57,8 @@ for (let i = 0; i < input.length; i++) {
   });
 }
 
+// Test kjhsdfhsfdhkjsdfhjkldshf
+
 window.addEventListener("click", (event) => {
   console.log(event.target);
   if (event.target.className != "input" && index != -1) {
