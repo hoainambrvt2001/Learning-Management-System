@@ -1,21 +1,56 @@
-<!-- Created By CodingNepal - www.codingnepalweb.com  -->
+<?php
+    session_start();
+
+    if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+        header('Location: ../login/');
+    } else {
+        if (isset($_SESSION['isTeacher']) && $_SESSION['isTeacher'] == true){
+            header('Location: ../login/');
+        }
+    }
+    include '../connect.php';
+    if (isset($_GET['id'])){
+        $quizID = $_GET['id'];
+        
+        $post = $db->quiz;
+
+        $results = $post->findOne(['quizID'=>$quizID]);
+
+        if (empty($results)){
+            header('Location: ./selection.php');
+        } else {
+            
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awesome Quiz App | CodingNepal</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Quiz Time</title>
+    <link rel="stylesheet" href="css/style.css">
     <!-- FontAweome CDN Link for Icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
     <!-- start Quiz button -->
-    <div class="start_btn"><button>Start Quiz</button></div>
+    <div class="wrapper">
+        <div class="hero-image">
+            <img src="images/quizyo-1.png" class="entry-logo">
+        </div>
+    </div>
+    <div class="start_btn">
+        <button>Start Quiz!</button>
+    </div>
+
+    <div class="home_btn">
+        <button><a href="index.php">Back to Home</a></button>
+    </div>
 
     <!-- Info Box -->
     <div class="info_box">
-        <div class="info-title"><span>Some Rules of this Quiz</span></div>
+        <div class="info-title"><span>IMPORTANT: QUIZ RULES!</span></div>
         <div class="info-list">
             <div class="info">1. You will have only <span>15 seconds</span> per each question.</div>
             <div class="info">2. Once you select your answer, it can't be undone.</div>
@@ -32,7 +67,7 @@
     <!-- Quiz Box -->
     <div class="quiz_box">
         <header>
-            <div class="title">Awesome Quiz Application</div>
+            <div class="title">QUIZ NAME</div>
             <div class="timer">
                 <div class="time_left_txt">Time Left</div>
                 <div class="timer_sec">15</div>
@@ -53,7 +88,9 @@
             <div class="total_que">
                 <!-- Here I've inserted Question Count Number from JavaScript -->
             </div>
-            <button class="next_btn">Next Que</button>
+            <button class="next_btn">
+                Next >>
+            </button>
         </footer>
     </div>
 
@@ -63,11 +100,12 @@
             <i class="fas fa-crown"></i>
         </div>
         <div class="complete_text">You've completed the Quiz!</div>
-        <div class="score_text">
-            <!-- Here I've inserted Score Result from JavaScript -->
-        </div>
         <div class="buttons">
-            <button class="restart">Replay Quiz</button>
+            <button class="restart">
+                <a href="results.php">
+                    More detail
+                </a>
+            </button>
             <button class="quit">Quit Quiz</button>
         </div>
     </div>
@@ -80,3 +118,7 @@
 
 </body>
 </html>
+
+
+
+
