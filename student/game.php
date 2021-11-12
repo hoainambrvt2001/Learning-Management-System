@@ -1,3 +1,29 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+        header('Location: ../login/');
+    } else {
+        if (isset($_SESSION['isTeacher']) && $_SESSION['isTeacher'] == true){
+            header('Location: ../login/');
+        }
+    }
+    include '../connect.php';
+    if (isset($_GET['id'])){
+        $quizID = $_GET['id'];
+        
+        $post = $db->quiz;
+
+        $results = $post->findOne(['quizID'=>$quizID]);
+
+        if (empty($results)){
+            header('Location: ./selection.php');
+        } else {
+            
+        }
+    }
+?>
+
 <!-- Created By CodingNepal - www.codingnepalweb.com  -->
 <!DOCTYPE html>
 <html lang="en">
@@ -5,7 +31,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Awesome Quiz App | CodingNepal</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- FontAweome CDN Link for Icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
@@ -22,6 +48,19 @@
             <div class="info">3. You can't select any option once time goes off.</div>
             <div class="info">4. You can't exit from the Quiz while you're playing.</div>
             <div class="info">5. You'll get points on the basis of your correct answers.</div>
+            <?php
+                include '../connect.php';
+                include './getStudentInfo.php';
+
+                if (isset($_GET['id'])){
+                    $quizID = $_GET['id'];
+                    $post = $db->question;
+
+                    $result = $post->find(['quizID'=>$quizID]);
+
+                    //print_r ($result);
+                }
+            ?>
         </div>
         <div class="buttons">
             <button class="quit">Exit Quiz</button>
@@ -68,7 +107,7 @@
         </div>
         <div class="buttons">
             <button class="restart">Replay Quiz</button>
-            <button class="quit">Quit Quiz</button>
+            <button class="quit"><a href="">Quit Quiz</a></button>
         </div>
     </div>
 
@@ -80,3 +119,30 @@
 
 </body>
 </html>
+<script>
+    // creating an array and passing the number, questions, options, and answers
+    
+let questions = [
+    <?php
+
+            $k = 1;
+            foreach ($result as $row){
+                echo '
+                        {
+                        numb: '.$k.',
+                        question: "'.$row->description.'",
+                        answer: "'.$row->firstChoice.'",
+                        options: [
+                        "'.$row->firstChoice.'",
+                        "'.$row->secondChoice.'",
+                        "'.$row->thirdChoice.'",
+                        "'.$row->fourthChoice.'"
+                        ]
+                    },
+                    ';
+                    $k = $k + 1;    
+            }
+                
+    ?>
+ ];
+</script>

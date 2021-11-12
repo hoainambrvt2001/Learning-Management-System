@@ -43,7 +43,7 @@
                         if (empty($results)){
                             echo '<p>No quiz found!<p>';
                         } else {
-                            header('Location: ./gamescreen.php?id='.$quizID);
+                            header('Location: ./game.php?id='.$quizID);
                         }
                     }
                 ?>

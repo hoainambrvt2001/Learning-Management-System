@@ -79,7 +79,7 @@
             </div>
     
             <div class="col-2">
-              <a href="./gamescreen.php?id='.$row->quizID.'">
+              <a href="./game.php?id='.$row->quizID.'">
               <div class="card-color wow fadeInUp">
                 <div class="body">
                   <span class="mai-arrow-forward"></span>
