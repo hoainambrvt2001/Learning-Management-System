@@ -119,6 +119,27 @@ body {
   display: block;
 }
 
+input[type="email"].input,
+input[type="password"].input {
+  width: 100%;
+  background-color: transparent;
+  color: black;
+  border-color: transparent;
+  font-size: 17px;
+  transition: all 0.3s;
+}
+
+.input[type="email"]:focus,
+.input[type="password"]:focus {
+  outline: none;
+}
+
+.input[type="email"]:active,
+.input[type="password"]:active {
+  background-color: transparent;
+  border-color: transparent;
+}
+
 input[type="text"].input,
 input[type="password"].input {
   width: 100%;

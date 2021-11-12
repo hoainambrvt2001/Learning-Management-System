@@ -41,7 +41,7 @@
             </div>
             <div class="InputWrapper">
                 <i class='fas fa-user-alt icon'></i>
-                <input name="username" placeholder="Username" type="text" class="input" autocomplete="off" required />
+                <input name="username" placeholder="Username" type="email" class="input" autocomplete="off" required />
             </div>
             <div class="InputWrapper">
                 <i class='fas fa-key icon'></i>
@@ -82,7 +82,7 @@
                     $fullname = $_POST['fullname'];
                     $username = $_POST['username'];
                     $password = md5($_POST['password']);
-                    $id = rand(10000000, 10000000000);
+                    $id = rand(1000000000, 10000000000);
 
                     if ($role == 'Teacher')
                     {
@@ -91,7 +91,7 @@
                         if (empty($res))
                         {
                             $insert = $post->insertOne([
-                                "teacherID" => $id,
+                                "teacherID" => 'TC-'.(string)$id,
                                 'name' => $fullname,
                                 'username' => $username,
                                 'password' => $password,
@@ -107,7 +107,7 @@
                         if (empty($res))
                         {
                             $insert = $post->insertOne([
-                                "studentID"=>$id,
+                                "studentID"=>'STU-'.(string)$id,
                                 'name' => $fullname,
                                 'username' => $username,
                                 'password' => $password,
