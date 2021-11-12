@@ -6,7 +6,7 @@ a course has 4 quiz,
 a quiz has 10 questions.
 
 20 students,
-a student complete 5 random quizzes.
+a student complete a random quizzes.
 
 A teacher from the database:
 
