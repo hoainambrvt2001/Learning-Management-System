@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// $_SESSION['teacherID'] = "TC-345678912";
-// $_SESSION['courseID'] = 'CO3001';
-// $_SESSION['quizID'] = '617a6de6fc13ae3d9c000006';
+$_SESSION['teacherID'] = "TC-345678912";
+$_SESSION['courseID'] = 'CO3001';
+$_SESSION['quizID'] = '617a6de6fc13ae3d9c000006';
 
-$page = "result";
+$page = "course";
 $button = "";
-$title = "";
+$title = ""; 
 if ($page == "course") {
   $button = "Create a course";
   $title = "All courses";
@@ -20,15 +20,13 @@ if ($page == "course") {
 ?>
 
 <?php
-    // session_start();
-
-    if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
-        header('Location: ../login/');
-    } else {
-        if (isset($_SESSION['isStudent']) && $_SESSION['isStudent'] == true){
-            header('Location: ../student/');
-        }
-    }
+  if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+      header('Location: ../login/');
+  } else {
+      if (isset($_SESSION['isStudent']) && $_SESSION['isStudent'] == true){
+          header('Location: ../student/');
+      }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -40,10 +38,16 @@ if ($page == "course") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="">
   <title>Home</title>
+  <?php
+    if ($page == "result") echo "
+      <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+      <link href='http://www.jqueryscript.net/css/jquerysctipttop.css' rel='stylesheet' type='text/css'>
+    ";
+  ?>
   <link rel="stylesheet" href="./teacher.css">
   <link rel="stylesheet" href="./<?php echo "$page/$page"; ?>.css">
-  <link rel="stylesheet" href="./responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
 </head>
 
 <body>
@@ -84,7 +88,8 @@ if ($page == "course") {
       </nav>
       <div class="content-wrapper">
         <?php
-        // require "../database/connectDB.php";
+        require "../database/connectDatabase.php";
+        $mydb = $client->mydb;
         include "./$page/index.php";
         ?>
       </div>

@@ -93,7 +93,7 @@ if (isset($_POST['btnAddCourse'])) {
       </div>
       <div class='card-content'>
         <p>$teacherCourse[name]</p>
-        <a href='#'><button>View</button></a>
+        <a href='/?courseID=courseID'><button>View</button></a>
       </div>
     </div>
     ";

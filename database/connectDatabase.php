@@ -7,7 +7,7 @@ $client = new MongoDB\Client(
 
 // Connec to the "data" database
 if ($data = $client->data){
-  echo "Connected";
+  // echo "Connected";
 }else{
   echo "Error: " . $data->error;
 }
