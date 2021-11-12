@@ -6,7 +6,7 @@ a course has 4 quiz,
 a quiz has 10 questions.
 
 20 students,
-a student complete a random quizzes.
+a student complete a random quiz.
 
 ----- There are 20 students complete quiz: Q-2037149586 -----
 
