@@ -1,0 +1,35 @@
+The "data" database has
+
+5 teachers,
+a teacher has 4 courses,
+a course has 4 quiz,
+a quiz has 10 questions.
+
+20 students,
+a student complete a random quizzes.
+
+----- There are 20 students complete quiz: Q-2037149586 -----
+
+A teacher from the database:
+
+TC-4203517869
+|----C-8346109257
+|    |----Q-2037149586
+|    |----Q-1768932054
+|    |----Q-0172356948
+|    |----Q-1395470286
+|----C-0247583916
+|    |----Q-7931584602
+|    |----Q-4503817692
+|    |----Q-2348075691
+|    |----Q-7345026981
+|----C-3278459106
+|    |----Q-2681350947
+|    |----Q-3278459106
+|    |----Q-3278459106
+|    |----Q-3278459106
+|----C-3561927048
+     |----Q-6827450391
+     |----Q-7820149536
+     |----Q-3096412587
+     |----Q-2356871094

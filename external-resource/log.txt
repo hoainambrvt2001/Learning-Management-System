@@ -1,0 +1,108 @@
+Connected
+Testing function: testCreateQuestionData()
+------------------------------
+Created 10 questions for quizId: Q-2037149586 courseId: C-8346109257
+Created 10 questions for quizId: Q-1768932054 courseId: C-8346109257
+Created 10 questions for quizId: Q-0172356948 courseId: C-8346109257
+Created 10 questions for quizId: Q-1395470286 courseId: C-8346109257
+Created 10 questions for quizId: Q-7931584602 courseId: C-0247583916
+Created 10 questions for quizId: Q-4503817692 courseId: C-0247583916
+Created 10 questions for quizId: Q-2348075691 courseId: C-0247583916
+Created 10 questions for quizId: Q-7345026981 courseId: C-0247583916
+Created 10 questions for quizId: Q-2681350947 courseId: C-3278459106
+Created 10 questions for quizId: Q-0839472156 courseId: C-3278459106
+Created 10 questions for quizId: Q-7482061593 courseId: C-3278459106
+Created 10 questions for quizId: Q-2476309851 courseId: C-3278459106
+Created 10 questions for quizId: Q-6827450391 courseId: C-3561927048
+Created 10 questions for quizId: Q-7820149536 courseId: C-3561927048
+Created 10 questions for quizId: Q-3096412587 courseId: C-3561927048
+Created 10 questions for quizId: Q-2356871094 courseId: C-3561927048
+Created 10 questions for quizId: Q-8513970246 courseId: C-8476913520
+Created 10 questions for quizId: Q-4253897601 courseId: C-8476913520
+Created 10 questions for quizId: Q-8692304715 courseId: C-8476913520
+Created 10 questions for quizId: Q-7249538106 courseId: C-8476913520
+Created 10 questions for quizId: Q-1864530927 courseId: C-0738291654
+Created 10 questions for quizId: Q-2106347589 courseId: C-0738291654
+Created 10 questions for quizId: Q-1587402693 courseId: C-0738291654
+Created 10 questions for quizId: Q-2416083597 courseId: C-0738291654
+Created 10 questions for quizId: Q-1368724905 courseId: C-8579463120
+Created 10 questions for quizId: Q-2753986041 courseId: C-8579463120
+Created 10 questions for quizId: Q-1837546290 courseId: C-8579463120
+Created 10 questions for quizId: Q-3698015247 courseId: C-8579463120
+Created 10 questions for quizId: Q-9507481236 courseId: C-2961354708
+Created 10 questions for quizId: Q-2041679385 courseId: C-2961354708
+Created 10 questions for quizId: Q-6271583940 courseId: C-2961354708
+Created 10 questions for quizId: Q-6128753409 courseId: C-2961354708
+Created 10 questions for quizId: Q-2468790531 courseId: C-5821397064
+Created 10 questions for quizId: Q-2605491837 courseId: C-5821397064
+Created 10 questions for quizId: Q-1879560423 courseId: C-5821397064
+Created 10 questions for quizId: Q-3870129564 courseId: C-5821397064
+Created 10 questions for quizId: Q-9670431825 courseId: C-0624781359
+Created 10 questions for quizId: Q-0861275349 courseId: C-0624781359
+Created 10 questions for quizId: Q-3508697412 courseId: C-0624781359
+Created 10 questions for quizId: Q-0394561728 courseId: C-0624781359
+Created 10 questions for quizId: Q-8796541032 courseId: C-3817026459
+Created 10 questions for quizId: Q-3460251789 courseId: C-3817026459
+Created 10 questions for quizId: Q-2485310697 courseId: C-3817026459
+Created 10 questions for quizId: Q-2468507931 courseId: C-3817026459
+Created 10 questions for quizId: Q-9741052683 courseId: C-3746092851
+Created 10 questions for quizId: Q-0179468523 courseId: C-3746092851
+Created 10 questions for quizId: Q-2860475319 courseId: C-3746092851
+Created 10 questions for quizId: Q-8760195243 courseId: C-3746092851
+Created 10 questions for quizId: Q-2057936418 courseId: C-5371846092
+Created 10 questions for quizId: Q-0327618594 courseId: C-5371846092
+Created 10 questions for quizId: Q-2563807941 courseId: C-5371846092
+Created 10 questions for quizId: Q-8456719320 courseId: C-5371846092
+Created 10 questions for quizId: Q-3158692407 courseId: C-4935061728
+Created 10 questions for quizId: Q-6124753890 courseId: C-4935061728
+Created 10 questions for quizId: Q-5879234016 courseId: C-4935061728
+Created 10 questions for quizId: Q-8453170296 courseId: C-4935061728
+Created 10 questions for quizId: Q-8915604372 courseId: C-2784190365
+Created 10 questions for quizId: Q-9876251340 courseId: C-2784190365
+Created 10 questions for quizId: Q-9457218603 courseId: C-2784190365
+Created 10 questions for quizId: Q-3807214695 courseId: C-2784190365
+Created 10 questions for quizId: Q-6307195482 courseId: C-6452081397
+Created 10 questions for quizId: Q-3624587910 courseId: C-6452081397
+Created 10 questions for quizId: Q-2670983154 courseId: C-6452081397
+Created 10 questions for quizId: Q-3642150897 courseId: C-6452081397
+Created 10 questions for quizId: Q-2310697485 courseId: C-3792615048
+Created 10 questions for quizId: Q-0518392476 courseId: C-3792615048
+Created 10 questions for quizId: Q-9467382105 courseId: C-3792615048
+Created 10 questions for quizId: Q-1284506739 courseId: C-3792615048
+Created 10 questions for quizId: Q-2049376158 courseId: C-1247683950
+Created 10 questions for quizId: Q-2681503749 courseId: C-1247683950
+Created 10 questions for quizId: Q-9630745128 courseId: C-1247683950
+Created 10 questions for quizId: Q-9710854632 courseId: C-1247683950
+Created 10 questions for quizId: Q-2731068945 courseId: C-6379851240
+Created 10 questions for quizId: Q-6841953207 courseId: C-6379851240
+Created 10 questions for quizId: Q-2940651783 courseId: C-6379851240
+Created 10 questions for quizId: Q-7695820431 courseId: C-6379851240
+Created 10 questions for quizId: Q-1983072564 courseId: C-8265734019
+Created 10 questions for quizId: Q-8793164502 courseId: C-8265734019
+Created 10 questions for quizId: Q-0941862375 courseId: C-8265734019
+Created 10 questions for quizId: Q-3215940687 courseId: C-8265734019
+
+
+Connected
+Testing function: testCreateMarkData()
+------------------------------
+Created a mark with quizId: Q-2037149586 and studentId: STU-1589403726
+Created a mark with quizId: Q-2037149586 and studentId: STU-0936712458
+Created a mark with quizId: Q-2037149586 and studentId: STU-3197425806
+Created a mark with quizId: Q-2037149586 and studentId: STU-0189462537
+Created a mark with quizId: Q-2037149586 and studentId: STU-0895372416
+Created a mark with quizId: Q-2037149586 and studentId: STU-6458209713
+Created a mark with quizId: Q-2037149586 and studentId: STU-4185729306
+Created a mark with quizId: Q-2037149586 and studentId: STU-3197425806
+Created a mark with quizId: Q-2037149586 and studentId: STU-0549276183
+Created a mark with quizId: Q-2037149586 and studentId: STU-3718645290
+Created a mark with quizId: Q-2037149586 and studentId: STU-8461273950
+Created a mark with quizId: Q-2037149586 and studentId: STU-1589403726
+Created a mark with quizId: Q-2037149586 and studentId: STU-0285743169
+Created a mark with quizId: Q-2037149586 and studentId: STU-5104869237
+Created a mark with quizId: Q-2037149586 and studentId: STU-0549276183
+Created a mark with quizId: Q-2037149586 and studentId: STU-0936712458
+Created a mark with quizId: Q-2037149586 and studentId: STU-8461273950
+Created a mark with quizId: Q-2037149586 and studentId: STU-8623450971
+Created a mark with quizId: Q-2037149586 and studentId: STU-4185729306
+Created a mark with quizId: Q-2037149586 and studentId: STU-0936712458

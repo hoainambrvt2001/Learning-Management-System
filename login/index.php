@@ -41,7 +41,7 @@
             <div class="TeacherForm">
               <div class="InputWrapper">
                 <i class='fas fa-user-alt icon'></i>
-                <input name="username" placeholder="Username" type="text" class="input" autocomplete="off"/>
+                <input name="username" placeholder="Username" type="email" class="input" autocomplete="off"/>
               </div>
               <div class="InputWrapper">
                 <i class='fas fa-key icon'></i>
@@ -62,7 +62,7 @@
             <div class="StudentForm">
               <div class="InputWrapper">
                 <i class='fas fa-user-alt icon'></i>
-                <input name="username" placeholder="Username" type="text" class="input" autocomplete="off"/>
+                <input name="username" placeholder="Username" type="email" class="input" autocomplete="off"/>
               </div>
               <div class="InputWrapper">
                 <i class='fas fa-key icon'></i>
