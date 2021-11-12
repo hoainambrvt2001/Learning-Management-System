@@ -1,2 +1,10 @@
 --------------- Functions ---------------------
 https://docs.google.com/spreadsheets/d/1ixov-z5gew2lSgqITOuZzOK6vB3z75j4KyedNAAW4xw/edit#gid=0
+
+--------------- Insert and retrieve date in mongodb ---------------------
+https://stackoverflow.com/questions/6590119/inserting-and-retriving-dates-and-timestamps-in-mongodb-using-php
+
+
+
+
+

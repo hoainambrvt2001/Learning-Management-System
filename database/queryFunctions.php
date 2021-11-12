@@ -1,7 +1,7 @@
 <?php
 
 require_once './conectCollection.php';
-require_once './models/question.model.php';
+require_once '../models/question.model.php';
 
 // Query all questions in the appropriate quiz when the user enter quiz Id
 // @param quizId
