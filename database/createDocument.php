@@ -218,7 +218,7 @@ function createMarkData($studentId, $quizId){
     $score = rand(5, 10);
     $markCollection->insertOne([
             "score" => (int) $score,
-            "quizAnswer" => [
+            "quizAnswer" => array(
                 "1" => (bool) $bools[rand(0,1)],
                 "2" => (bool) $bools[rand(0,1)],
                 "3" => (bool) $bools[rand(0,1)],
@@ -229,7 +229,7 @@ function createMarkData($studentId, $quizId){
                 "8" => (bool) $bools[rand(0,1)],
                 "9" => (bool) $bools[rand(0,1)],
                 "10" => (bool) $bools[rand(0,1)],
-            ],
+            ),
             "studentId" => $studentId,
             "quizId" => $quizId,
         ]);

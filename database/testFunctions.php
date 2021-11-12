@@ -118,7 +118,10 @@ function testCreateMarkData(){
     "Q-9710854632","Q-2731068945","Q-6841953207","Q-2940651783","Q-7695820431","Q-1983072564",
     "Q-8793164502","Q-0941862375","Q-3215940687");
 
+    for($i=0;$i < 20; $i++){
     $studentId = $studentIds[rand(0, 19)];
-    $quizId = $quizIds[rand(0, 79)];
+    // $quizId = $quizIds[rand(0, 79)];
+    $quizId = "Q-2037149586";
     createMarkData($studentId, $quizId);
+    }
 }

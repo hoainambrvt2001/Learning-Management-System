@@ -81,3 +81,28 @@ Created 10 questions for quizId: Q-1983072564 courseId: C-8265734019
 Created 10 questions for quizId: Q-8793164502 courseId: C-8265734019
 Created 10 questions for quizId: Q-0941862375 courseId: C-8265734019
 Created 10 questions for quizId: Q-3215940687 courseId: C-8265734019
+
+
+Connected
+Testing function: testCreateMarkData()
+------------------------------
+Created a mark with quizId: Q-2037149586 and studentId: STU-1589403726
+Created a mark with quizId: Q-2037149586 and studentId: STU-0936712458
+Created a mark with quizId: Q-2037149586 and studentId: STU-3197425806
+Created a mark with quizId: Q-2037149586 and studentId: STU-0189462537
+Created a mark with quizId: Q-2037149586 and studentId: STU-0895372416
+Created a mark with quizId: Q-2037149586 and studentId: STU-6458209713
+Created a mark with quizId: Q-2037149586 and studentId: STU-4185729306
+Created a mark with quizId: Q-2037149586 and studentId: STU-3197425806
+Created a mark with quizId: Q-2037149586 and studentId: STU-0549276183
+Created a mark with quizId: Q-2037149586 and studentId: STU-3718645290
+Created a mark with quizId: Q-2037149586 and studentId: STU-8461273950
+Created a mark with quizId: Q-2037149586 and studentId: STU-1589403726
+Created a mark with quizId: Q-2037149586 and studentId: STU-0285743169
+Created a mark with quizId: Q-2037149586 and studentId: STU-5104869237
+Created a mark with quizId: Q-2037149586 and studentId: STU-0549276183
+Created a mark with quizId: Q-2037149586 and studentId: STU-0936712458
+Created a mark with quizId: Q-2037149586 and studentId: STU-8461273950
+Created a mark with quizId: Q-2037149586 and studentId: STU-8623450971
+Created a mark with quizId: Q-2037149586 and studentId: STU-4185729306
+Created a mark with quizId: Q-2037149586 and studentId: STU-0936712458
