@@ -55,6 +55,7 @@ if (isset($_POST['btnAddCourse'])) {
 <form class="form-course" method="POST">
   <div class="form-header">
     <div class="form-title">Add course</div>
+    <p class="wrong"></p>
     <div class="form-button">
       <div class="cancel">Cancel</div>
       <button type="submit" class="submit" name="btnAddCourse">Submit</button>
@@ -93,7 +94,7 @@ if (isset($_POST['btnAddCourse'])) {
       </div>
       <div class='card-content'>
         <p>$teacherCourse[name]</p>
-        <a href='/?courseID=courseID'><button>View</button></a>
+        <a href='#'><button>View</button></a>
       </div>
     </div>
     ";

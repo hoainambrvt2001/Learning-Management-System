@@ -2,14 +2,14 @@ let createBtn = document.querySelector(".create-btn");
 let form = document.querySelector(".form-course");
 
 let toggle = false;
-let height = window.innerWidth < 768 ? "190px" : "140px";
+let height = window.innerWidth < 768 ? "200px" : "140px";
 
 window.addEventListener("resize", () => {
   toggle = false;
   form.style.opacity = 0;
   form.style.height = 0;
   form.style.zIndex = -10;
-  height = window.innerWidth < 768 ? "190px" : "140px";
+  height = window.innerWidth < 768 ? "200px" : "140px";
 });
 
 createBtn.addEventListener("click", () => {
@@ -30,4 +30,13 @@ form.querySelector(".cancel").addEventListener("click", () => {
   form.style.opacity = 0;
   form.style.height = 0;
   form.style.zIndex = -10;
+});
+
+let courseName = form.querySelector("input");
+
+form.addEventListener("submit", (e) => {
+  if (courseName.value == "") {
+    e.preventDefault();
+    document.querySelector(".wrong").innerText = "Course name cannot be empty";
+  }
 });
