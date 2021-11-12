@@ -1,23 +1,47 @@
+.wrong {
+  color: red;
+  font-size: 13px;
+}
+
 .form-quiz {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   width: calc(100% - 20px);
   border-radius: 4px;
-  padding: 0 20px;
+  padding: 20px 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 0;
   opacity: 0;
   z-index: -10;
-  transition: opacity 0.15s, height 0.15s, margin-top 0.15s;
+  transition: opacity 0.15s, height 0.15s, margin-top 0.15s, box-shadow 0.3s;
 }
 
 .form-wrapper {
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+}
+
+.line {
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(209, 213, 219, 1);
+  top: 20px;
+}
+
+.form-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 20px;
+  align-items: flex-end;
 }
 
 .form-quiz input,
@@ -28,6 +52,11 @@
   padding: 8px;
   border: 1px solid;
   border-radius: 4px;
+}
+
+.form-quiz input {
+  height: 40px;
+  width: auto;
 }
 
 .form-quiz textarea {
@@ -60,19 +89,69 @@
   font-weight: 500;
 }
 
-.form-name,
-.form-question,
-.form-level,
+.form-name {
+  width: 40%;
+}
+
+.form-name input {
+  width: 100%;
+}
+
+.date-flex {
+  display: flex;
+  column-gap: 20px;
+  row-gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-title,
 .form-option {
   margin-top: 20px;
+}
+
+.form-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.title {
+  color: #23d9a2;
+  font-weight: 700 !important;
+}
+
+.fa-minus-circle::before {
+  color: rgba(239, 68, 68, 1);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.form-input {
+  display: flex;
+  column-gap: 20px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  row-gap: 20px;
+}
+
+.form-input textarea {
+  width: 100%;
+}
+
+.form-select {
+  width: 100%;
+  max-width: 140px;
 }
 
 .form-select select {
   font-size: 16px;
   padding: 7px;
-  margin-bottom: 4px;
   width: 100%;
-  max-width: 140px;
   background-color: white;
   border: 1px solid;
   border-radius: 4px;
@@ -88,7 +167,7 @@
 .form-button {
   width: 100%;
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: flex-end;
   position: relative;
@@ -251,18 +330,8 @@
     font-size: 16px;
   }
 
-  .form-name {
-    width: 30%;
-  }
-
-  .form-question {
-    width: 49%;
-  }
-
-  .form-header {
-    display: flex;
-    align-items: flex-end;
-    column-gap: 20px;
+  .form-input textarea {
+    width: calc(100% - 160px);
   }
 
   .form-bottom {
@@ -284,5 +353,14 @@
   .form-quiz:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
       rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  }
+
+  .fa-minus-circle::before {
+    color: rgba(209, 213, 219, 1);
+    transition: color 0.3s;
+  }
+
+  .fa-minus-circle:hover::before {
+    color: rgba(239, 68, 68, 1);
   }
 }

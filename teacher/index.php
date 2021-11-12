@@ -44,8 +44,6 @@ if ($page == "course") {
   <link rel="stylesheet" href="./<?php echo "$page/$page"; ?>.css">
   <link rel="stylesheet" href="./responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
-  
 </head>
 
 <body>

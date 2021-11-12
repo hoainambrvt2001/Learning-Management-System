@@ -39,7 +39,7 @@
             $_SESSION['isStudent'] = true;
             header('Location: ../student/');
         } else {
-        echo 'Invalid username or password';
+        echo '<p class="wrong">Invalid username or password</p>';
         }
     }
 

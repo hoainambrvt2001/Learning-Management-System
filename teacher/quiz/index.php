@@ -1,16 +1,31 @@
 <form class="form-quiz" id="form-quiz">
-  <div class="form-name">
-    <p>Quiz name <span class="wrong"></span></p>
-    <input type="text" name="quiz-name" placeholder="Quiz name">
+  <div class="form-top">
+    <div class="form-name">
+      <p class="title">Quiz name</p>
+      <input type="text" name="quiz-name" placeholder="Quiz name">
+    </div>
+    <div>
+      <div class="date-flex">
+        <div class="date">
+          <p>Start Date </p>
+          <input type="date" name="date" placeholder="Select Date">
+        </div>
+        <div class="date">
+          <p>Due Date </p>
+          <input type="date" name="date" placeholder="Select Date">
+        </div>
+      </div>
+      <span class="wrong"></span>
+    </div>
   </div>
   <div class="form-wrapper">
+    <div class='line'></div>
     <div class="form-header">
-      <div class="form-question">
-        <p>Question 1<span class="wrong"></span></p>
-        <textarea name="question" rows="2" placeholder="Question Description"></textarea>
+      <div class="form-title">
+        <p class="title">Question 1<span class="wrong"></span></p>
       </div>
-      <div class="form-level">
-        <input type="hidden" name="level">
+      <div class="form-input">
+        <textarea name="question" rows="2" placeholder="Question Description"></textarea>
         <div class="form-select">
           <input type="hidden" name="level">
           <select>

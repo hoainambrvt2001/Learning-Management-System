@@ -5,11 +5,21 @@ let toggle = false;
 let height = 0;
 
 let count = 1;
-let wrapperHeight = form.querySelector(".form-wrapper").clientHeight;
+let initWrapper = form.querySelector(".form-wrapper");
+let wrapperHeight = initWrapper.clientHeight;
+
 if (window.innerWidth < 768) {
-  height = 820;
+  height = 860;
 } else {
-  height = 540;
+  height = 580;
+}
+
+if (window.innerWidth < 663) {
+  height += 130;
+}
+
+if (window.innerWidth < 417) {
+  height += 60;
 }
 
 window.addEventListener("resize", () => {
@@ -18,11 +28,21 @@ window.addEventListener("resize", () => {
   form.style.height = 0;
   form.style.zIndex = -10;
   form.style.marginTop = 0;
-  wrapperHeight = form.querySelector(".form-wrapper").clientHeight;
+  initWrapper = form.querySelector(".form-wrapper");
+  initRemove = initWrapper.getElementsByClassName("fa-close");
+  wrapperHeight = initWrapper.clientHeight;
   if (window.innerWidth < 768) {
-    height = 820 + wrapperHeight * (count - 1);
+    height = 860 + wrapperHeight * (count - 1);
   } else {
-    height = 540 + wrapperHeight * (count - 1);
+    height = 580 + wrapperHeight * (count - 1);
+  }
+
+  if (window.innerWidth < 663) {
+    height += 130;
+  }
+
+  if (window.innerWidth < 417) {
+    height += 60;
   }
 });
 
@@ -51,19 +71,22 @@ form.querySelector(".cancel").addEventListener("click", () => {
 let addBtn = document.querySelector(".add-btn");
 
 addBtn.addEventListener("click", () => {
+  count++;
+
   let wrapper = document.createElement("div");
   wrapper.className = "form-wrapper";
   wrapper.innerHTML = `
+    <div class="line"></div>
     <div class="form-header">
-      <div class="form-question">
-        <p>Question ${++count}<span class="wrong"></span></p>
-        <textarea name="question" rows="2" placeholder="Question Description"></textarea>
+      <div class="form-title">
+        <p class="title">Question <span class="count">${count}</span><span class="wrong"></span></p>
+        <i class="fa fa-minus-circle"></i>
       </div>
-      <div class="form-level">
-        <input type="hidden" name="level" >
+      <div class="form-input">
+        <textarea name="question" rows="2" placeholder="Question Description"></textarea>
         <div class="form-select">
           <input type="hidden" name="level">
-          <select >
+          <select>
             <option style="display: none">Level:</option>
             <option>Easy</option>
             <option>Medium</option>
@@ -95,4 +118,45 @@ addBtn.addEventListener("click", () => {
   height += wrapperHeight;
   form.style.height = `${height}px`;
   form.insertBefore(wrapper, addBtn);
+  wrapper = form.getElementsByClassName("form-wrapper");
+  wrapper = wrapper[wrapper.length - 1];
+  console.log(wrapper);
+  wrapper.querySelector(".fa-minus-circle").addEventListener("click", () => {
+    wrapper.remove();
+    count--;
+    height -= wrapperHeight;
+    form.style.height = `${height}px`;
+    let counting = document.getElementsByClassName("count");
+    for (let i = 0; i < counting.length; i++) {
+      counting[i].innerText = i + 2;
+    }
+  });
+});
+
+let temp = document.getElementsByName("date");
+let dateChange = 0;
+let wrong = true;
+
+const validateDate = () => {
+  if (new Date(temp[0].value).getTime() > new Date(temp[1].value).getTime()) {
+    wrong = true;
+  } else wrong = false;
+};
+
+temp[0].addEventListener("change", () => {
+  dateChange++;
+  dateChange > 1 ? validateDate() : null;
+});
+
+temp[1].addEventListener("change", () => {
+  dateChange++;
+  dateChange > 1 ? validateDate() : null;
+});
+
+form.addEventListener("submit", (e) => {
+  if (wrong) {
+    e.preventDefault();
+    document.querySelector(".wrong").innerHTML =
+      "Start date cannot be less than due date";
+  }
 });
