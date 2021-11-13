@@ -52,22 +52,75 @@ if (isset($_POST['btnAddCourse'])) {
 }
 ?>
 
+<!-- Icon -->
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 <form class="form-course" method="POST">
   <div class="form-header">
-    <div class="form-title">Add course</div>
+    <div class="form-title">Add a course</div>
     <p class="wrong"></p>
-    <div class="form-button">
-      <div class="cancel">Cancel</div>
-      <button type="submit" class="submit" name="btnAddCourse">Submit</button>
-    </div>
   </div>
   <input type="text" name="ipCourseName" class="input" placeholder="Course Name" />
+  <input type="hidden" name="courseID">
+  <div class="form-button">
+    <div class="cancel">Cancel</div>
+    <button type="submit" class="submit" name="btnAddCourse">Submit</button>
+  </div>
 </form>
 
 <h1><?php echo $title; ?></h1>
 
+<div class="form-wrapper">
+<form class="form-edit">
+  <div class="form-header">
+    <div class="form-title">Edit name</div>
+    <p class="wrong"></p>
+  </div>
+  <input type="text" name="ipCourseName" class="input" placeholder="Course Name" />
+  <input type="hidden" name="courseID">
+  <input type="hidden" name="type" value="1">
+  <div class="form-button">
+    <div class="cancel">Cancel</div>
+    <button type="submit" class="submit" name="btnEditCourse">Submit</button>
+  </div>
+</form>
+</div>
+
+<div class="form-wrapper">
+<form class="form-delete">
+  <p>Do you want to delete this course ?</p>
+  <div class="form-button">
+    <div class="cancel">Cancel</div>
+    <button type="submit" class="submit" name="btnDeleteCourse">Submit</button>
+    <input type="hidden" name="courseID">
+    <input type="hidden" name="type" value="2">
+  </div>
+</form>
+</div>
+
 <div class="content-container">
-  <!-- Use data here -->
+  <!-- Fake card for testing -->
+
+  <!-- <div class='card'>
+    <div class='card-image'>
+      <img src='../assets/course.png' alt=''>
+    </div>
+    <div class='card-content'>
+      <p class="course-name">temp</p>
+      <div class="content-bottom">
+        <a href='./?page=quiz'><button>View</button></a>
+        <div class="drop-down">
+          <i class="fas fa-ellipsis-v"></i>
+          <div class="drop-down-list">
+            <p class="edit">Edit name</p>
+            <p class="delete">Delete course</p>
+          </div>
+          <input type="hidden" name="courseID" value="1" >
+        </div>
+      </div>
+    </div>
+  </div>  -->
+
   <?php
   // Get teacher and course collections
   $teacherCollection = $mydb->teacher;
@@ -89,14 +142,24 @@ if (isset($_POST['btnAddCourse'])) {
   foreach ($teacherCourses as $teacherCourse) {
     echo "
       <div class='card'>
-      <div class='card-image'>
-        <img src='../assets/course.png' alt=''>
-      </div>
-      <div class='card-content'>
-        <p>$teacherCourse[name]</p>
-        <a href='#'><button>View</button></a>
-      </div>
-    </div>
+        <div class='card-image'>
+          <img src='../assets/course.png' alt=''>
+        </div>
+        <div class='card-content'>
+          <p class='course-name'>$teacherCourse[name]</p>
+          <div class='content-bottom'>
+            <a href='/?page=quiz'><button>View</button></a>
+            <div class='drop-down'>
+              <i class='fas fa-ellipsis-v'></i>
+              <div class='drop-down-list'>
+                <p class='edit'>Edit name</p>
+                <p class='delete'>Delete course</p>
+              </div>
+              <input type='hidden' name='courseID' value='1' >
+            </div>
+          </div>
+        </div>
+      </div> 
     ";
   }
   ?>

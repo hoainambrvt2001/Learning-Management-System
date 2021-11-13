@@ -69,28 +69,28 @@ form.querySelector(".cancel").addEventListener("click", () => {
 });
 
 let addBtn = document.querySelector(".add-btn");
+let ipCount = document.querySelector(".ipCount");
 
 addBtn.addEventListener("click", () => {
   count++;
-
+  ipCount.value = count;
   let wrapper = document.createElement("div");
   wrapper.className = "form-wrapper";
   wrapper.innerHTML = `
-    <div class="line"></div>
     <div class="form-header">
-      <div class="form-title">
-        <p class="title">Question <span class="count">${count}</span><span class="wrong"></span></p>
-        <i class="fa fa-minus-circle"></i>
+      <div class="form-question">
+        <p>Question ${count}<span class="wrong"></span></p>
+        <textarea name="description-${count}" rows="2" placeholder="Question Description"></textarea>
       </div>
-      <div class="form-input">
-        <textarea name="question" rows="2" placeholder="Question Description"></textarea>
+      <div class="form-level">
+        <input type="hidden" name="level" >
         <div class="form-select">
           <input type="hidden" name="level">
-          <select>
+          <select name="lvlOption-${count}">
             <option style="display: none">Level:</option>
-            <option>Easy</option>
-            <option>Medium</option>
-            <option>Hard</option>
+            <option value="0">Easy</option>
+            <option value="1">Medium</option>
+            <option value="2">Hard</option>
           </select>
         </div>
       </div>
@@ -98,19 +98,19 @@ addBtn.addEventListener("click", () => {
     <div class="form-bottom">
       <div class="form-option">
         <p>Option A<span style="color: red">*</span><span class="wrong"></span></p>
-        <textarea name="A" rows="2" placeholder="Option A (correct answer)"></textarea>
+        <textarea name="option1-${count}" rows="2" placeholder="Option A (correct answer)"></textarea>
       </div>
       <div class="form-option">
         <p>Option B <span class="wrong"></span></p>
-        <textarea name="B" rows="2" placeholder="Option B"></textarea>
+        <textarea name="option2-${count}" rows="2" placeholder="Option B"></textarea>
       </div>
       <div class="form-option">
         <p>Option C <span class="wrong"></span></p>
-        <textarea name="C" rows="2" placeholder="Option C"></textarea>
+        <textarea name="option3-${count}" rows="2" placeholder="Option C"></textarea>
       </div>
       <div class="form-option">
         <p>Option D <span class="wrong"></span></p>
-        <textarea name="D" rows="2" placeholder="Option D"></textarea>
+        <textarea name="option4-${count}" rows="2" placeholder="Option D"></textarea>
       </div>
     </div>
   `;
@@ -118,6 +118,7 @@ addBtn.addEventListener("click", () => {
   height += wrapperHeight;
   form.style.height = `${height}px`;
   form.insertBefore(wrapper, addBtn);
+
   wrapper = form.getElementsByClassName("form-wrapper");
   wrapper = wrapper[wrapper.length - 1];
   console.log(wrapper);

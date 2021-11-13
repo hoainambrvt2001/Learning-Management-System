@@ -1,17 +1,11 @@
-.content-container {
-  display: grid;
-  grid-template-columns: minmax(0, 300px);
-  align-items: center;
-}
-
 .form-course {
   width: 85%;
   height: 0;
   opacity: 0;
-  z-index: -10;
+  z-index: -1;
+  padding: 20px 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 8px;
-  padding: 0 20px;
   position: relative;
   margin: 20px auto 0;
   transition: opacity 0.3s, height 0.3s;
@@ -19,10 +13,10 @@
 
 .form-title {
   font-size: 24px;
-  line-height: 48px;
+  line-height: 30px;
   font-weight: 700;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .wrong {
@@ -32,11 +26,13 @@
 }
 
 .form-button {
-  bottom: 15px;
-  right: 20px;
+  margin-top: 20px;
   display: flex;
-  position: absolute;
-  column-gap: 16px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: static;
+  column-gap: 20px;
+  row-gap: 20px;
 }
 
 .submit,
@@ -57,32 +53,73 @@
   transition: transform 0.3s;
 }
 
-.submit:hover {
-  transform: scale(1.2);
-}
-
 .cancel {
   background-color: white;
   border: 2px solid black;
   transition: transform 0.3s, background-color 0.3s, color 0.3s;
 }
 
-.cancel:hover {
-  transform: scale(1.2);
-  background-color: black;
-  color: white;
-}
-
 .input {
   width: 100%;
-  transition: outline-color 0.3s;
   font-size: 16px;
   padding: 4px;
+  margin-top: 10px;
 }
 
 .input:focus {
-  border-color: none;
   outline-color: #23d9a2;
+}
+
+.form-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 0;
+  z-index: -1;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: height 0.5s, opacity 0.5s, z-index 0.3s;
+}
+
+.form-wrapper .form-edit {
+  background-color: white;
+  position: relative;
+  padding: 20px 20px;
+  width: 80%;
+  border-radius: 4px;
+}
+
+.form-wrapper .form-delete {
+  padding: 20px 20px 30px;
+  background-color: white;
+  border-radius: 4px;
+  margin-left: 15px;
+  margin-right: 15px;
+  position: relative;
+}
+
+.form-delete .form-button {
+  width: 100%;
+  bottom: 20px;
+  right: auto;
+  top: auto;
+  justify-content: space-between;
+}
+
+.form-wrapper .form-delete p {
+  color: rgba(239, 68, 68, 1);
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: minmax(0, 300px);
+  align-items: center;
 }
 
 .card {
@@ -99,10 +136,6 @@
   align-items: center;
   justify-content: space-between;
   transition: box-shadow 0.3s;
-}
-
-.card:hover {
-  box-shadow: 4px 8px 20px 4px rgba(0, 0, 0, 0.25);
 }
 
 .card-image {
@@ -124,6 +157,8 @@
   padding-bottom: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   row-gap: 12px;
 }
 
@@ -156,36 +191,152 @@
   transition: transform 0.3s;
 }
 
-.card-content button:hover {
-  transform: scale(1.2);
+.content-bottom {
+  position: relative;
+  width: 100%;
+}
+
+.drop-down {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-radius: 4px;
+}
+
+.drop-down .fas {
+  width: 24px;
+  height: 38px;
+  cursor: pointer;
+}
+
+.drop-down .fas::before {
+  width: 24px;
+  height: 38px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop-down-list {
+  background-color: white;
+  display: none;
+  border-radius: 4px;
+  position: absolute;
+  width: max-content;
+  right: 0;
+  text-align: left;
+  transition: display 3s;
+}
+
+.drop-down-list p {
+  font-size: 16px;
+  margin: 0;
+  padding: 4px 15px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(156, 163, 175, 1);
+  cursor: pointer;
+}
+
+.drop-down-list .edit {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom: none;
+}
+
+.drop-down-list .delete {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.drop-down:hover .drop-down-list {
+  display: block;
 }
 
 @media (min-width: 768px) {
   .form-course {
-    width: 95%;
-    padding-left: 22px;
-    padding-right: 22px;
+    width: 500px;
+    padding: 40px 40px;
   }
 
-  .form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .form-course .input {
+    line-height: 24px;
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .form-wrapper .form-edit {
+    width: 450px;
+    padding: 40px 40px;
+  }
+
+  .form-edit .input {
+    line-height: 24px;
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .form-edit .form-button {
+    top: 20px;
+    right: 40px;
   }
 
   .form-button {
-    position: static;
+    justify-content: flex-end;
+    position: absolute;
+    top: 20px;
+    right: 40px;
   }
 
-  .input {
-    width: 60%;
+  .form-wrapper .form-delete {
+    padding-bottom: 60px;
+  }
+
+  .form-delete .form-button {
+    width: calc(100% - 40px);
   }
 
   .content-container {
-    display: flex;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(2, minmax(0, 300px));
     column-gap: 40px;
-    justify-content: center;
-    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content-container {
+    grid-template-columns: repeat(3, minmax(0, 300px));
+  }
+
+  .submit:hover {
+    transform: scale(1.2);
+  }
+
+  .cancel:hover {
+    transform: scale(1.2);
+    background-color: black;
+    color: white;
+  }
+
+  .card:hover {
+    box-shadow: 4px 8px 20px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .card-content button:hover {
+    transform: scale(1.2);
+  }
+
+  .drop-down .fas::before {
+    color: rgba(209, 213, 219, 1);
+  }
+
+  .drop-down:hover .fas::before {
+    color: rgba(75, 85, 99, 1);
+  }
+
+  .drop-down-list p:hover {
+    background-color: rgba(55, 65, 81, 1);
+    color: white;
   }
 }
