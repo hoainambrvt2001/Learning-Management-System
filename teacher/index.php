@@ -6,6 +6,9 @@ $_SESSION['courseID'] = 'CO3001';
 $_SESSION['quizID'] = '617a6de6fc13ae3d9c000006';
 
 $page = "course";
+
+if (isset($_GET["page"])) $page = $_GET["page"];
+
 $button = "";
 $title = ""; 
 if ($page == "course") {
