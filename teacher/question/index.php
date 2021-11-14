@@ -87,7 +87,8 @@
   <a href="./?page=result&questionID=questionID">
     <button class="view">View results</button>
   </a>
-  <button class="download">Download PDF</button>
+  <!-- <button class="download">Download PDF</button> -->
+  <?php echo "<button class=\"download\" onClick=\"window.print();\">Download PDF</button>";?>
 </div>
 
 <?php
