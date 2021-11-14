@@ -74,7 +74,7 @@
             <?php
                 include '../connect.php';
 
-                $db = $connect->mydb;
+                $db = $connect->data;
 
                 if(isset($_POST['register']))
                 {
@@ -91,10 +91,13 @@
                         if (empty($res))
                         {
                             $insert = $post->insertOne([
-                                "teacherID" => 'TC-'.(string)$id,
+                                "teacherId" => 'TC-'.(string)$id,
                                 'name' => $fullname,
                                 'username' => $username,
                                 'password' => $password,
+                                'gender'=>'',
+                                'birthday' =>'', 
+                                'phone'=>'',
                             ]);
                             echo "Register successfully";
                         } else {
@@ -107,10 +110,13 @@
                         if (empty($res))
                         {
                             $insert = $post->insertOne([
-                                "studentID"=>'STU-'.(string)$id,
+                                "studentId"=>'STU-'.(string)$id,
                                 'name' => $fullname,
                                 'username' => $username,
                                 'password' => $password,
+                                'gender'=>'',
+                                'birthday' =>'', 
+                                'phone'=>'',
                             ]);
                             echo "Register successfully";
                         } else {

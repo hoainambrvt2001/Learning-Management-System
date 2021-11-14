@@ -70,9 +70,9 @@
 
           $post = $db->mark;
 
-          $id = getStudent($_SESSION['username'])->studentID;
+          $id = getStudent($_SESSION['username'])->studentId;
           
-          $res = $post->find(['studentID' => strval($id)]); //$id must be converted to string
+          $res = $post->find(['studentId' => strval($id)]); //$id must be converted to string
 
 
           if (empty($res)){
@@ -88,17 +88,19 @@
                   </div>
                 </div>
                 <div class="body">
-                  <h5 class="post-title">'.getQuiz($row->quizID)->name.'</h5>
-                  <p class="post-date">Course: '.getCourse(getQuiz($row->quizID)->courseID)->name.' ('.getQuiz($row->quizID)->courseID.')</p>
-                  <p class="post-date">Created by: '.getTeacher(getQuiz($row->quizID)->teacherID)->name.'</p>
+                  <h5 class="post-title">'.getQuiz($row->quizId)->name.'</h5>
+                  <p class="post-date">Course: '.getCourse(getQuiz($row->quizId)->courseId)->name.' ('.getQuiz($row->quizId)->courseId.')</p>
+                  <p class="post-date">Created by: '.getTeacher(getQuiz($row->quizId)->teacherId)->name.'</p>
                   <p class="post-date" style="color:green">Score: '.$row->score.'</p>
-                  <p class="post-date" style="color:red">Deadline: '.getQuiz($row->quizID)->dueDate.'</p>' ?>
+                  <p class="post-date" style="color:red">Deadline: '.getQuiz($row->quizId)->dueDate.'</p>' ?>
                   <?php
                     $now = time();
-                    $getDate = (string)getQuiz($row->quizID)->dueDate;
+                    $getDate = (string)getQuiz($row->quizId)->dueDate;
 
                     $date = date($getDate);
                     
+                    echo getType($date);
+
                     if ($date <= strtotime($now)) {
                       echo '<p class="post-date" style="color:red">The deadline for this quiz is over</p>
                       <a href="gamescreen.php" class="btn btn-warning">Review</a>';

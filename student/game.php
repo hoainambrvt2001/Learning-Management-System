@@ -14,13 +14,13 @@
         
         $post = $db->quiz;
 
-        $results = $post->findOne(['quizID'=>$quizID]);
+        $results = $post->findOne(['quizId'=>$quizID]);
 
         if (empty($results)){
             header('Location: ./selection.php');
         } else {
             $post = $db->question;
-            $result = $post->find(['quizID'=>$quizID]);
+            $result = $post->find(['quizId'=>$quizID]);
         }
     }
 ?>
@@ -131,74 +131,18 @@ let questions = [
                         {
                         numb: '.$k.',
                         question: "'.$row->description.'",
-                        answer: "'.$row->firstChoice.'",
+                        answer: "'.$row->option1.'",
                         options: [
-                        "'.$row->firstChoice.'",
-                        "'.$row->secondChoice.'",
-                        "'.$row->thirdChoice.'",
-                        "'.$row->fourthChoice.'"
-                        ]
+                        "'.$row->option1.'",
+                        "'.$row->option2.'",
+                        "'.$row->option3.'",
+                        "'.$row->option4.'",
+                        ],
                     },
                     ';
                     $k = $k + 1;    
             }
-                
     ?>,
-//     {
-//     numb: 1,
-//     question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam pretium felis, et fermentum ipsum dictum ut.",
-//     answer: "Praesent id urna mollis, egestas lacus efficitur, semper felis. Orci varius natoque penatibus et magnis dis parturient",
-//     options: [
-//       "Hyper Text Preprocessor",
-//       "Praesent id urna mollis, egestas lacus efficitur, semper felis. Orci varius natoque penatibus et magnis dis parturient",
-//       "Hyper Text Multiple Language",
-//       "Hyper Tool Multi Language"
-//     ]
-//   },
-//     {
-//     numb: 2,
-//     question: "What does CSS stand for?",
-//     answer: "Cascading Style Sheet",
-//     options: [
-//       "Common Style Sheet",
-//       "Colorful Style Sheet",
-//       "Computer Style Sheet",
-//       "Cascading Style Sheet"
-//     ]
-//   },
-//     {
-//     numb: 3,
-//     question: "What does PHP stand for?",
-//     answer: "Hypertext Preprocessor",
-//     options: [
-//       "Hypertext Preprocessor",
-//       "Hypertext Programming",
-//       "Hypertext Preprogramming",
-//       "Hometext Preprocessor"
-//     ]
-//   },
-//     {
-//     numb: 4,
-//     question: "What does SQL stand for?",
-//     answer: "Structured Query Language",
-//     options: [
-//       "Stylish Question Language",
-//       "Stylesheet Query Language",
-//       "Statement Question Language",
-//       "Structured Query Language"
-//     ]
-//   },
-//     {
-//     numb: 5,
-//     question: "What does XML stand for?",
-//     answer: "eXtensible Markup Language",
-//     options: [
-//       "eXtensible Markup Language",
-//       "eXecutable Multiple Language",
-//       "eXTra Multi-Program Language",
-//       "eXamine Multiple Language"
-//     ]
-//   },
  ];
 
 </script>

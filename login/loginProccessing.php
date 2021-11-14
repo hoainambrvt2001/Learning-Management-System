@@ -6,7 +6,7 @@
         'mongodb+srv://hoainambrvt2001:tMIxYDVcInK2mCkN@nhattan.7vquo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
     );
     
-    $db = $connect->mydb;
+    $db = $connect->data;
 
     if (isset($_POST['TeacherButton'])){
         

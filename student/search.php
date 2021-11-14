@@ -37,7 +37,12 @@
   <div class="container search-body">
     <div class="row align-items-center flex-wrap-reverse">
       <div class="col-md-6 py-5 wow fadeInLeft">
-        <form class="search-form" action="search_processing.php" method="POST">
+      <?php
+            if (isset($_POST['search-service'])){
+              $item = $_POST['item'];
+            }
+          ?>
+        <form class="search-form" action="search_processing.php?item=<?php echo $item; ?>" method="POST">
             <div class="row mt-5 ">
                 <div class="col-12 py-2 wow fadeInRight">
                   <div class="text-center wow fadeInUp">
@@ -45,25 +50,26 @@
                     <div class="divider mx-auto"></div>
                   </div>
                 </div>
-                <div class="col-12 py-2 wow fadeInRight text-md" data-wow-delay="300ms">
+                <!-- <div class="col-12 py-2 wow fadeInRight text-md" data-wow-delay="300ms">
                     <select name="category" id="price-range" class="custom-select" required>
                         <option value="ask" selected disabled class="disable">You want to find...</option>
                         <option value="quiz">Quiz</option>
                         <option value="course">Course</option>
                         <option value="teacher">Teacher</option>
                     </select>
+                </div> -->
+                <div class="col-12 col-sm-12 py-2 wow fadeInRight">
+                    <input type="text" name="item" class="form-control" placeholder="Search" required>
                 </div>
-                <div class="col-12 col-sm-6 py-2 wow fadeInRight">
-                    <input type="text" name="searchName" class="form-control" placeholder="Name" required>
-                </div>
-                <div class="col-12 col-sm-6 py-2 wow fadeInRight">
+                <!-- <div class="col-12 col-sm-6 py-2 wow fadeInRight">
                     <input type="text" name="searchID" class="form-control" placeholder="ID" required>
-                </div>
+                </div> -->
                 
             </div>
             <input type="hidden" name="page" value="search_processing">
             <button name="search-service" id="search-btn" type="submit" class="btn btn-primary wow zoomIn">Search</button>
           </form>
+          
       </div>
 
       <div class="col-md-6 py-5 wow zoomIn">

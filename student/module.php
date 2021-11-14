@@ -47,7 +47,7 @@
           </div>
           <div class="col-md-6 wow zoomIn">
             <h4 class="mb-4"><?php echo getStudent($_SESSION['username'])->name; ?></h4>
-            <p class="text-lg text-primary mb-5"><?php echo getStudent($_SESSION['username'])->studentID; ?></p>
+            <p class="text-lg text-primary mb-5"><?php echo getStudent($_SESSION['username'])->studentId; ?></p>
           </div>
         </div>
       </div>
@@ -72,14 +72,14 @@
               <div class="card-service wow fadeInUp">
                 <div class="body">
                   <h5 class="text-secondary">'.$row->name.'</h5>
-                  <p>Course: '.getCourse($row->courseID)->name.' ('.$row->courseID.')</p>
-                  <p>Created by: '.getTeacher($row->teacherID)->name.'</p>
+                  <p>Course: '.getCourse($row->courseId)->name.' ('.$row->courseId.')</p>
+                  <p>Created by: '.getTeacher($row->teacherId)->name.'</p>
                 </div>
               </div>
             </div>
     
             <div class="col-2">
-              <a href="./game.php?id='.$row->quizID.'">
+              <a href="./game.php?id='.$row->quizId.'">
               <div class="card-color wow fadeInUp">
                 <div class="body">
                   <span class="mai-arrow-forward"></span>

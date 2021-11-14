@@ -35,19 +35,132 @@
         <h1 id="search-title">What You Found Here </h1>
         <div class="divider mx-auto"></div>
       </div>
+      <div class="row mt-5">
+      <?php
+        include '../connect.php';
+        include './getStudentInfo.php';
 
+        if (isset($_GET['item'])){
+          $item = $_GET['item'];
+          
+        } else {
+          header('Location ./search.php');
+        }
+
+        if (!isset($item) or $item == ''){
+          header('Location ./search.php');
+        }
+        
+        
+        $findCourse = $db->course;
+
+        $findQuiz = $db->quiz;
+
+        $resCourse = $findCourse->find(
+          array (
+            '$or'=> array (
+              array ('name'=>['$regex'=>'(?i)'.$item]),
+              array('courseId'=>['$regex'=>'(?i)'.$item]),
+            )
+          )          
+            );
+        $resQuiz = $findQuiz->find(
+          array (
+            '$or'=> array (
+              array ('name'=>['$regex'=>'(?i)'.$item]),
+              array('quizId'=>['$regex'=>'(?i)'.$item]),
+            )
+          )    
+            );
+
+        // foreach ($resCourse as $row){
+        //   echo $row->name;
+        // }
+        // foreach ($resQuiz as $row){
+        //   echo $row->name;
+        // }
+
+        if (empty($resQuiz) and empty($resCourse)){
+          echo '
+          <div class="not-found">
+          <div class="text-center wow fadeInUp">
+            <p class="subhead">Sorry, we don\'t have that!<p>
+          </div>
+          <div class="wow fadeInUp">
+            <img src="images/no-result.png" id="not-found-img">
+          </div>
+        </div>
+          ';
+        } elseif (!empty($resQuiz)){
+          
+          foreach ($resQuiz as $row){
+            echo '
+            
+            <div class="col-lg-3 py-3 wow fadeInUp">
+              <div id="search-card" class="card-blog">
+                <div class="header">
+                  <div class="post-thumb">
+                    <img src="images/quiz-1.jpg" alt="">
+                  </div>
+                </div>
+                <div class="body">
+                  <h5 class="post-title">'.$row->name.'</h5>
+                  <h6>Course: '.getCourse($row->courseId)->name.' </h6>
+                  <h6>Teacher: '.getTeacher($row->teacherId)->name.' </h6>
+                  
+                  <a href="game.php?'.$row->quizId.'" class="btn btn-secondary">Learn more</a>
+                </div>
+              </div>
+            </div>
+          
+            ';
+          }
+        } elseif (!empty($resCourse)){
+
+          foreach($resCourse as $row){
+              $getQuiz = $db->quiz;
+              $res = $getQuiz->find(['quizId'=>$row->quizId]);
+              if(empty($res)){
+                echo "Nothing found";
+              }
+              foreach($res as $value){
+                echo '
+      
+                <div class="col-lg-3 py-3 wow fadeInUp">
+                  <div id="search-card" class="card-blog">
+                    <div class="header">
+                      <div class="post-thumb">
+                        <img src="images/quiz-1.jpg" alt="">
+                      </div>
+                    </div>
+                    <div class="body">
+                      <h5 class="post-title">'.$value->name.'</h5>
+                      <h6>Course: '.$row->name.' </h6>
+                      <h6>Teacher: '.getTeacher($row->teacherId)->name.' </h6>
+                      
+                      <a href="game.php?'.$row->quizId.'" class="btn btn-secondary">Learn more</a>
+                    </div>
+                  </div>
+                </div>
+              
+                ';
+              }
+          }
+        }
+      ?>
+      </div>
       <!--If no result, show class "not-found"-->  
-      <div class="not-found">
+      <!-- <div class="not-found">
         <div class="text-center wow fadeInUp">
           <p class="subhead">Sorry, we don't have that!<p>
         </div>
         <div class="wow fadeInUp">
           <img src="images/no-result.png" id="not-found-img">
         </div>
-      </div>
+      </div> -->
 
       <!--Show results like this class-->  
-      <div class="row mt-5">
+      <!-- <div class="row mt-5">
         <div class="col-lg-12 py-3 wow fadeInUp">
           <div id="search-card" class="card-blog">
             <div class="header">
@@ -64,7 +177,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="col-12 mt-4 text-center wow fadeInUp">
           <a href="search.php" id="find-another" class="btn btn-primary">Find another?</a>
