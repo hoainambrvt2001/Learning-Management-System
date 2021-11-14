@@ -93,7 +93,9 @@
 </div>
 
 <div class="function-button">
-  <button class="view">View results</button>
+  <a href="./?page=result&questionID=questionID">
+    <button class="view">View results</button>
+  </a>
   <button class="download">Download PDF</button>
 </div>
 

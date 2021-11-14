@@ -65,11 +65,11 @@ if (isset($_POST['btnAddQuiz'])) {
       <div class="date-flex">
         <div class="date">
           <p>Start Date </p>
-          <input type="date" name="date" placeholder="Select Date" required>
+          <input type="date" name="date" placeholder="Select Date" class="select-date" required>
         </div>
         <div class="date">
           <p>Due Date </p>
-          <input type="date" name="date" placeholder="Select Date" required>
+          <input type="date" name="date" placeholder="Select Date" class="select-date" required>
         </div>
       </div>
       <span class="wrong"></span>
@@ -133,11 +133,12 @@ if (isset($_POST['btnAddQuiz'])) {
   // Get quizzes based on courseID and teacherID
   $quizzes = $quizCollection->find(['courseID' => $_SESSION["courseID"], 'teacherID' => $_SESSION["teacherID"]]);
 
+  // line 141 TODO: push value quizID
   foreach ($quizzes as $quiz) {
     echo '<div class="card">
             <div class="card-top">
                 <p>' . $quiz->name . '</p>
-                <button><a href="./">VIEW</a></button>
+                <button><a href="./?page=question&quizID=quizID">VIEW</a></button>
             </div>
             <div class="card-bot">
               <p class="date">' . $quiz->startDate . '</p>

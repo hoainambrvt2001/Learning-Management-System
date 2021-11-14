@@ -139,6 +139,8 @@ if (isset($_POST['btnAddCourse'])) {
   }
 
   // Render courses to card
+
+  // line 153 TODO: push value courseID
   foreach ($teacherCourses as $teacherCourse) {
     echo "
       <div class='card'>
@@ -148,7 +150,7 @@ if (isset($_POST['btnAddCourse'])) {
         <div class='card-content'>
           <p class='course-name'>$teacherCourse[name]</p>
           <div class='content-bottom'>
-            <a href='./?page=quiz'><button>View</button></a>
+            <a href='./?page=quiz&courseID=courseID'><button>View</button></a>
             <div class='drop-down'>
               <i class='fas fa-ellipsis-v'></i>
               <div class='drop-down-list'>

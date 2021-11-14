@@ -126,6 +126,7 @@ addBtn.addEventListener("click", () => {
   wrapper.querySelector(".fa-minus-circle").addEventListener("click", () => {
     wrapper.remove();
     count--;
+    ipCount.value = count;
     height -= wrapperHeight;
     form.style.height = `${height}px`;
     let counting = document.getElementsByClassName("count");
@@ -135,7 +136,7 @@ addBtn.addEventListener("click", () => {
   });
 });
 
-let temp = document.getElementsByName("date");
+let temp = document.getElementsByClassName("select-date");
 let dateChange = 0;
 let wrong = true;
 
