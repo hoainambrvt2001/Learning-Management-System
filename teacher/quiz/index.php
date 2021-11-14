@@ -56,18 +56,33 @@ if (isset($_POST['btnAddQuiz'])) {
 ?>
 
 <form class="form-quiz" id="form-quiz" method="POST">
-  <div class="form-name">
-    <p>Quiz name <span class="wrong"></span></p>
-    <input type="text" name="quizName" placeholder="Quiz name">
+  <div class="form-top">
+    <div class="form-name">
+      <p class="title">Quiz name</p>
+      <input type="text" name="quizName" placeholder="Quiz name" required>
+    </div>
+    <div>
+      <div class="date-flex">
+        <div class="date">
+          <p>Start Date </p>
+          <input type="date" name="date" placeholder="Select Date" required>
+        </div>
+        <div class="date">
+          <p>Due Date </p>
+          <input type="date" name="date" placeholder="Select Date" required>
+        </div>
+      </div>
+      <span class="wrong"></span>
+    </div>
   </div>
   <div class="form-wrapper">
+    <div class='line'></div>
     <div class="form-header">
-      <div class="form-question">
-        <p>Question 1<span class="wrong"></span></p>
-        <textarea name="description-1" rows="2" placeholder="Question Description"></textarea>
+      <div class="form-title">
+        <p class="title">Question 1<span class="wrong"></span></p>
       </div>
-      <div class="form-level">
-        <input type="hidden" name="level">
+      <div class="form-input">
+        <textarea name="description-1" rows="2" placeholder="Question Description" required></textarea>
         <div class="form-select">
           <input type="hidden" name="level">
           <select name="lvlOption-1">
@@ -82,19 +97,19 @@ if (isset($_POST['btnAddQuiz'])) {
     <div class="form-bottom">
       <div class="form-option">
         <p>Option A<span style="color: red">*</span><span class="wrong"></span></p>
-        <textarea name="option1-1" rows="2" placeholder="Option A (correct answer)"></textarea>
+        <textarea name="option1-1" rows="2" placeholder="Option A (correct answer)" required></textarea>
       </div>
       <div class="form-option">
         <p>Option B <span class="wrong"></span></p>
-        <textarea name="option2-1" rows="2" placeholder="Option B"></textarea>
+        <textarea name="option2-1" rows="2" placeholder="Option B" required></textarea>
       </div>
       <div class="form-option">
         <p>Option C <span class="wrong"></span></p>
-        <textarea name="option3-1" rows="2" placeholder="Option C"></textarea>
+        <textarea name="option3-1" rows="2" placeholder="Option C" required></textarea>
       </div>
       <div class="form-option">
         <p>Option D <span class="wrong"></span></p>
-        <textarea name="option4-1" rows="2" placeholder="Option D"></textarea>
+        <textarea name="option4-1" rows="2" placeholder="Option D" required></textarea>
       </div>
     </div>
   </div>

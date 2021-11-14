@@ -77,16 +77,17 @@ addBtn.addEventListener("click", () => {
   let wrapper = document.createElement("div");
   wrapper.className = "form-wrapper";
   wrapper.innerHTML = `
+    <div class='line'></div>
     <div class="form-header">
-      <div class="form-question">
-        <p>Question ${count}<span class="wrong"></span></p>
-        <textarea name="description-${count}" rows="2" placeholder="Question Description"></textarea>
+      <div class="form-title">
+        <p class="title">Question ${count}<span class="wrong"></span></p>
+        <i class="fa fa-minus-circle"></i>
       </div>
-      <div class="form-level">
-        <input type="hidden" name="level" >
+      <div class="form-input">
+        <textarea name="description-${count}" rows="2" placeholder="Question Description" required></textarea>
         <div class="form-select">
           <input type="hidden" name="level">
-          <select name="lvlOption-${count}">
+          <select name="lvlOption-${count}" required>
             <option style="display: none">Level:</option>
             <option value="0">Easy</option>
             <option value="1">Medium</option>
@@ -98,19 +99,19 @@ addBtn.addEventListener("click", () => {
     <div class="form-bottom">
       <div class="form-option">
         <p>Option A<span style="color: red">*</span><span class="wrong"></span></p>
-        <textarea name="option1-${count}" rows="2" placeholder="Option A (correct answer)"></textarea>
+        <textarea name="option1-${count}" rows="2" placeholder="Option A (correct answer)" required></textarea>
       </div>
       <div class="form-option">
         <p>Option B <span class="wrong"></span></p>
-        <textarea name="option2-${count}" rows="2" placeholder="Option B"></textarea>
+        <textarea name="option2-${count}" rows="2" placeholder="Option B" required></textarea>
       </div>
       <div class="form-option">
         <p>Option C <span class="wrong"></span></p>
-        <textarea name="option3-${count}" rows="2" placeholder="Option C"></textarea>
+        <textarea name="option3-${count}" rows="2" placeholder="Option C" required></textarea>
       </div>
       <div class="form-option">
         <p>Option D <span class="wrong"></span></p>
-        <textarea name="option4-${count}" rows="2" placeholder="Option D"></textarea>
+        <textarea name="option4-${count}" rows="2" placeholder="Option D" required></textarea>
       </div>
     </div>
   `;
