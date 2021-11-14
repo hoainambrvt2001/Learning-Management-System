@@ -84,7 +84,7 @@
   align-items: center;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  transition: opacity 0.5s, z-index 0.3s;
+  transition: opacity 0.15s, z-index 0.5s;
 }
 
 .form-wrapper .form-edit {

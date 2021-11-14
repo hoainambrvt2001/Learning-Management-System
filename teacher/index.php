@@ -9,6 +9,10 @@ $page = "course";
 
 if (isset($_GET["page"])) $page = $_GET["page"];
 
+// Please get courseID and quizID for line 80
+$courseID = "course";
+$quizID = "quiz";
+
 $button = "";
 $title = ""; 
 if ($page == "course") {
@@ -73,7 +77,22 @@ if ($page == "course") {
               <div class="menu-line"></div>
               <div class="menu-line"></div>
             </div>
-            <p>Your courses</p>
+            <!-- Path -->
+            <p>Your courses
+              <?php
+                if ($courseID) {
+                  // Query courseName here
+                  $courseName = "course";
+                  echo " > $courseName";
+                }
+                if ($quizID) {
+                  // Query quizName here
+                  $quizName = "quiz";
+                  echo " > $quizName";
+                }
+                if ($page == "result") echo " > View result";
+              ?>
+            </p>
           </div>
           <div class="menu-list">
 
