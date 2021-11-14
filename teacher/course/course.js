@@ -59,7 +59,6 @@ for (let i = 0; i < length; i++) {
     let input = formWrapper[0].getElementsByTagName("input");
     input[0].value = card[i].querySelector(".course-name").innerText;
     input[1].value = card[i].querySelector("input").value;
-    formWrapper[0].style.height = "100vh";
     formWrapper[0].style.opacity = 1;
     formWrapper[0].style.zIndex = 10;
   });
@@ -71,7 +70,6 @@ for (let i = 0; i < length; i++) {
   remove[i].addEventListener("click", () => {
     let input = formWrapper[0].getElementsByTagName("input");
     input[1].value = card[i].querySelector("input").value;
-    formWrapper[1].style.height = "100vh";
     formWrapper[1].style.opacity = 1;
     formWrapper[1].style.zIndex = 10;
   });
@@ -79,13 +77,11 @@ for (let i = 0; i < length; i++) {
 
 // Add cancel button eventlistener
 formWrapper[0].querySelector(".cancel").addEventListener("click", (e) => {
-  formWrapper[0].style.height = 0;
   formWrapper[0].style.opacity = 0;
   formWrapper[0].style.zIndex = -1;
 });
 
 formWrapper[1].querySelector(".cancel").addEventListener("click", (e) => {
-  formWrapper[1].style.height = 0;
   formWrapper[1].style.opacity = 0;
   formWrapper[1].style.zIndex = -1;
 });

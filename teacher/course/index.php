@@ -88,7 +88,7 @@ if (isset($_POST['btnAddCourse'])) {
 
 <div class="form-wrapper">
 <form class="form-delete">
-  <p>Do you want to delete this course ?</p>
+  <p style="text-align: center">Do you want to delete this course ?</p>
   <div class="form-button">
     <div class="cancel">Cancel</div>
     <button type="submit" class="submit" name="btnDeleteCourse">Submit</button>
