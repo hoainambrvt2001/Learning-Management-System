@@ -9,6 +9,7 @@ const option_list = document.querySelector(".option_list");
 const time_line = document.querySelector("header .time_line");
 const timeText = document.querySelector(".timer .time_left_txt");
 const timeCount = document.querySelector(".timer .timer_sec");
+const useranswers = [];
 
 // if startQuiz button clicked
 start_btn.onclick = ()=>{
@@ -33,17 +34,18 @@ continue_btn.onclick = ()=>{
 let timeValue =  15;
 let que_count = 0;
 let que_numb = 1;
-let userScore = 0;
 let counter;
 let counterLine;
 let widthValue = 0;
 
 const quit_quiz = result_box.querySelector(".buttons .quit");
+var hiddenInput = document.getElementById('resArray')
+const more_detail = result_box.querySelector(".buttons .more-detail");
 
-// if quitQuiz button clicked
-quit_quiz.onclick = ()=>{
-    window.location.reload(); //reload the current window
+more_detail.onclick = ()=>{
+    hiddenInput.value = JSON.stringify(useranswers);
 }
+
 
 const next_btn = document.querySelector("footer .next_btn");
 const bottom_ques_counter = document.querySelector("footer .total_que");
@@ -98,11 +100,11 @@ function optionSelected(answer){
     const allOptions = option_list.children.length; //getting all option items
     
     if(userAns == correcAns){ //if user selected option is equal to array's correct answer
-        userScore += 1; //upgrading score value with 1
+        useranswers.push("true");
         answer.classList.add("correct"); //adding green color to correct selected option
         console.log("Correct Answer");
-        console.log("Your correct answers = " + userScore);
     }else{
+        useranswers.push("false");
         answer.classList.add("incorrect"); //adding red color to correct selected option
         console.log("Wrong Answer");
 
@@ -123,20 +125,6 @@ function showResult(){
     info_box.classList.remove("activeInfo"); //hide info box
     quiz_box.classList.remove("activeQuiz"); //hide quiz box
     result_box.classList.add("activeResult"); //show result box
-    const scoreText = result_box.querySelector(".score_text");
-    if (userScore > 3){ // if user scored more than 3
-        //creating a new span tag and passing the user score number and total question number
-        let scoreTag = '<span>and congrats! 🎉, You got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
-        scoreText.innerHTML = scoreTag;  //adding new span tag inside score_Text
-    }
-    else if(userScore > 1){ // if user scored more than 1
-        let scoreTag = '<span>and nice 😎, You got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
-        scoreText.innerHTML = scoreTag;
-    }
-    else{ // if user scored less than 1
-        let scoreTag = '<span>and sorry 😐, You got only <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
-        scoreText.innerHTML = scoreTag;
-    }
 }
 
 function startTimer(time){

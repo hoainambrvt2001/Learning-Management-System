@@ -105,12 +105,12 @@
         </div>
         <div class="complete_text">You've completed the Quiz!</div>
         <div class="buttons">
-            <button class="restart">
-                <a href="results.php">
-                    More detail
-                </a>
-            </button>
-            <button class="quit">Quit Quiz</button>
+            <form action="results.php" method="POST">
+                <input id="resArray" type="hidden" name="answers">
+                <button id="result-btn" type="submit" class="more-detail">
+                        Finish Quiz
+                </button>
+            </form>
         </div>
     </div>
 

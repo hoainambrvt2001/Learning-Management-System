@@ -404,16 +404,20 @@ footer button.show{
     border: 1px solid #007bff;
     transition: all 0.3s ease;
 }
-.buttons button.restart{
+
+.buttons button.restart,
+.buttons button.more-detail{
     color: #fff;
     background: var(--blue);
 }
 
-.buttons button.restart a{
+.buttons button.restart a,
+.buttons button.more-detail a{
     color: #fff;
 }
 
-.buttons button.restart:hover{
+.buttons button.restart:hover,
+.buttons button.more-detail:hover{
     background: var(--green);
 }
 .buttons button.quit{
