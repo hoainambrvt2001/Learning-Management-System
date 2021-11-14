@@ -54,7 +54,6 @@ let textarea = formEdit.getElementsByTagName("textarea");
 let input = formEdit.getElementsByTagName("input");
 
 formWrapper.querySelector(".cancel").addEventListener("click", () => {
-  formWrapper.style.height = "0";
   formWrapper.style.zIndex = -1;
   formWrapper.style.opacity = 0;
 });
@@ -67,7 +66,6 @@ let editBtn = document.getElementsByClassName("fa-edit");
 
 for (let i = 0; i < editBtn.length; i++) {
   editBtn[i].addEventListener("click", () => {
-    formWrapper.style.height = "100vh";
     formWrapper.style.zIndex = 10;
     formWrapper.style.opacity = 1;
 
