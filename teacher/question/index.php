@@ -5,9 +5,7 @@
       <textarea name="question" rows="2" placeholder="Question Description"  required></textarea>
     </div>
     <div class="form-level">
-      <input type="hidden" name="level">
       <div class="form-select">
-        <input type="hidden" name="level">
         <select>
           <option>Easy</option>
           <option>Medium</option>
@@ -48,9 +46,7 @@
         <textarea name="question" rows="2" placeholder="Question Description" required></textarea>
       </div>
       <div class="form-level">
-        <input type="hidden" name="level">
         <div class="form-select">
-          <input type="hidden" name="level">
           <select>
             <option value="0">Easy</option>
             <option value="1">Medium</option>
@@ -76,10 +72,8 @@
         <p>Option D <span class="wrong"></span></p>
         <textarea name="D" rows="2" placeholder="Option D" required></textarea>
       </div>
-      <!-- ==================================================== -->
-      <!-- Type = 1 -> Edit the question -->
-      <!-- Type = 2 -> Delete the question -->
-      <input type="hidden" name="quizID" value="1">
+      <!-- Input for questionID -->
+      <input type="hidden" name="questionID" value="1">
     </div>
     <div class="form-button">
       <button type="submit" class="delete">Delete</button>
@@ -93,7 +87,8 @@
   <a href="./?page=result&questionID=questionID">
     <button class="view">View results</button>
   </a>
-  <button class="download">Download PDF</button>
+  <!-- <button class="download">Download PDF</button> -->
+  <?php echo "<button class=\"download\" onClick=\"window.print();\">Download PDF</button>";?>
 </div>
 
 <?php

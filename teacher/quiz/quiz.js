@@ -8,6 +8,7 @@ let count = 1;
 let initWrapper = form.querySelector(".form-wrapper");
 let wrapperHeight = initWrapper.clientHeight;
 
+// calculating add quiz form height
 if (window.innerWidth < 768) {
   height = 860;
 } else {
@@ -22,6 +23,7 @@ if (window.innerWidth < 417) {
   height += 60;
 }
 
+// reset state when resize
 window.addEventListener("resize", () => {
   toggle = false;
   form.style.opacity = 0;
@@ -30,6 +32,8 @@ window.addEventListener("resize", () => {
   form.style.marginTop = 0;
   initWrapper = form.querySelector(".form-wrapper");
   initRemove = initWrapper.getElementsByClassName("fa-close");
+
+  // calculating add quiz form height
   wrapperHeight = initWrapper.clientHeight;
   if (window.innerWidth < 768) {
     height = 860 + wrapperHeight * (count - 1);
@@ -46,6 +50,7 @@ window.addEventListener("resize", () => {
   }
 });
 
+// create button event in add quiz form
 createBtn.addEventListener("click", () => {
   toggle = !toggle;
   if (toggle) {
@@ -61,6 +66,7 @@ createBtn.addEventListener("click", () => {
   }
 });
 
+// Cancel event in add quiz form
 form.querySelector(".cancel").addEventListener("click", () => {
   toggle = false;
   form.style.opacity = 0;
@@ -71,6 +77,7 @@ form.querySelector(".cancel").addEventListener("click", () => {
 let addBtn = document.querySelector(".add-btn");
 let ipCount = document.querySelector(".ipCount");
 
+// Add more question
 addBtn.addEventListener("click", () => {
   count++;
   ipCount.value = count;
@@ -116,6 +123,7 @@ addBtn.addEventListener("click", () => {
     </div>
   `;
 
+  // Calculating height for the form
   height += wrapperHeight;
   form.style.height = `${height}px`;
   form.insertBefore(wrapper, addBtn);
@@ -123,6 +131,8 @@ addBtn.addEventListener("click", () => {
   wrapper = form.getElementsByClassName("form-wrapper");
   wrapper = wrapper[wrapper.length - 1];
   console.log(wrapper);
+
+  // Add remove icon event
   wrapper.querySelector(".fa-minus-circle").addEventListener("click", () => {
     wrapper.remove();
     count--;
@@ -136,26 +146,34 @@ addBtn.addEventListener("click", () => {
   });
 });
 
-let temp = document.getElementsByClassName("select-date");
+let selectDate = document.getElementsByClassName("select-date");
 let dateChange = 0;
 let wrong = true;
 
+// validate date function
+// Compare start date vs due date
 const validateDate = () => {
-  if (new Date(temp[0].value).getTime() > new Date(temp[1].value).getTime()) {
+  if (
+    new Date(selectDate[0].value).getTime() >
+    new Date(selectDate[1].value).getTime()
+  ) {
     wrong = true;
   } else wrong = false;
 };
 
-temp[0].addEventListener("change", () => {
+// When user change the date, datechange++.
+// when datechange > 1, validate the date
+selectDate[0].addEventListener("change", () => {
   dateChange++;
   dateChange > 1 ? validateDate() : null;
 });
 
-temp[1].addEventListener("change", () => {
+selectDate[1].addEventListener("change", () => {
   dateChange++;
   dateChange > 1 ? validateDate() : null;
 });
 
+// If wrong == true -> due date > start date
 form.addEventListener("submit", (e) => {
   if (wrong) {
     e.preventDefault();

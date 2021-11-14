@@ -7,7 +7,8 @@ function random_course_id()
   $courseID = substr(str_shuffle($chars), 0, 2) . substr(str_shuffle($numbers), 0, 4);
   return $courseID;
 }
-
+// $temp = new MongoDB\BSON\ObjectId("5a2493c33c95a1281836eb6a");
+// echo $temp;
 // Handle submit add course:
 if (isset($_POST['btnAddCourse'])) {
   $courseName = $_POST['ipCourseName'];

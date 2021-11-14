@@ -5,6 +5,7 @@ let toggle = false;
 let height = window.innerWidth < 768 ? "656px" : "386px";
 let padding = window.innerWidth < 768 ? "12px" : "20px";
 
+// reset state when resize
 window.addEventListener("resize", () => {
   toggle = false;
   form.style.opacity = 0;
@@ -17,6 +18,7 @@ window.addEventListener("resize", () => {
   height = window.innerWidth < 768 ? "656px" : "386px";
 });
 
+// create button event in add question form
 createBtn.addEventListener("click", () => {
   toggle = !toggle;
   if (toggle) {
@@ -36,6 +38,7 @@ createBtn.addEventListener("click", () => {
   }
 });
 
+// Cancel event in add question form
 form.querySelector(".cancel").addEventListener("click", () => {
   toggle = false;
   form.style.opacity = 0;
@@ -54,12 +57,16 @@ let textarea = formEdit.getElementsByTagName("textarea");
 let option = formEdit.querySelectorAll("option");
 let input = formEdit.getElementsByTagName("input");
 
+// Cancel event in edit form
 formWrapper.querySelector(".cancel").addEventListener("click", () => {
   formWrapper.style.zIndex = -1;
   formWrapper.style.opacity = 0;
 });
 
+// Edit button
 let editBtn = document.getElementsByClassName("fa-edit");
+
+// when edit button is click -> pass all the data to edit form textarea and input
 
 for (let i = 0; i < editBtn.length; i++) {
   editBtn[i].addEventListener("click", () => {
@@ -67,18 +74,25 @@ for (let i = 0; i < editBtn.length; i++) {
     formWrapper.style.opacity = 1;
 
     let hiddenInput = editBtn[i].getElementsByTagName("input");
+    // pass description
     textarea[0].value = hiddenInput[0].value;
+    // pass firstchoice
     textarea[1].value = hiddenInput[1].value;
+    // pass secondchoice
     textarea[2].value = hiddenInput[2].value;
+    // pass thirdchoice
     textarea[3].value = hiddenInput[3].value;
+    // pass fourthchoice
     textarea[4].value = hiddenInput[4].value;
 
+    // Pass the level
     if (hiddenInput[5].value == "0") {
       option[0].selected = true;
     } else if (hiddenInput[5].value == "1") {
       option[1].selected = true;
     } else option[2].selected = true;
 
+    // Pass questionID
     input[0].value = hiddenInput[6].value;
   });
 }
