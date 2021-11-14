@@ -2,14 +2,13 @@
   <div class="form-header">
     <div class="form-question-desc">
       <p>Question:<span class="wrong"></span></p>
-      <textarea name="question" rows="2" placeholder="Question Description"></textarea>
+      <textarea name="question" rows="2" placeholder="Question Description"  required></textarea>
     </div>
     <div class="form-level">
       <input type="hidden" name="level">
       <div class="form-select">
         <input type="hidden" name="level">
         <select>
-          <option style="display: none">Level:</option>
           <option>Easy</option>
           <option>Medium</option>
           <option>Hard</option>
@@ -20,19 +19,19 @@
   <div class="form-body">
     <div class="form-option">
       <p>Option A<span style="color: red">*</span><span class="wrong"></span></p>
-      <textarea name="A" rows="2" placeholder="Option A (correct answer)"></textarea>
+      <textarea name="A" rows="2" placeholder="Option A (correct answer)" required></textarea>
     </div>
     <div class="form-option">
       <p>Option B <span class="wrong"></span></p>
-      <textarea name="B" rows="2" placeholder="Option B"></textarea>
+      <textarea name="B" rows="2" placeholder="Option B" required></textarea>
     </div>
     <div class="form-option">
       <p>Option C <span class="wrong"></span></p>
-      <textarea name="C" rows="2" placeholder="Option C"></textarea>
+      <textarea name="C" rows="2" placeholder="Option C" required></textarea>
     </div>
     <div class="form-option">
       <p>Option D <span class="wrong"></span></p>
-      <textarea name="D" rows="2" placeholder="Option D"></textarea>
+      <textarea name="D" rows="2" placeholder="Option D" required></textarea>
     </div>
   </div>
   <div class="form-button">
@@ -46,17 +45,16 @@
     <div class="form-header">
       <div class="form-question-desc">
         <p>Question:<span class="wrong"></span></p>
-        <textarea name="question" rows="2" placeholder="Question Description"></textarea>
+        <textarea name="question" rows="2" placeholder="Question Description" required></textarea>
       </div>
       <div class="form-level">
         <input type="hidden" name="level">
         <div class="form-select">
           <input type="hidden" name="level">
           <select>
-            <option style="display: none">Level:</option>
-            <option>Easy</option>
-            <option>Medium</option>
-            <option>Hard</option>
+            <option value="0">Easy</option>
+            <option value="1">Medium</option>
+            <option value="2">Hard</option>
           </select>
         </div>
       </div>
@@ -64,25 +62,24 @@
     <div class="form-body">
       <div class="form-option">
         <p>Option A<span style="color: red">*</span><span class="wrong"></span></p>
-        <textarea name="A" rows="2" placeholder="Option A (correct answer)"></textarea>
+        <textarea name="A" rows="2" placeholder="Option A (correct answer)"  required></textarea>
       </div>
       <div class="form-option">
         <p>Option B <span class="wrong"></span></p>
-        <textarea name="B" rows="2" placeholder="Option B"></textarea>
+        <textarea name="B" rows="2" placeholder="Option B" required></textarea>
       </div>
       <div class="form-option">
         <p>Option C <span class="wrong"></span></p>
-        <textarea name="C" rows="2" placeholder="Option C"></textarea>
+        <textarea name="C" rows="2" placeholder="Option C" required></textarea>
       </div>
       <div class="form-option">
         <p>Option D <span class="wrong"></span></p>
-        <textarea name="D" rows="2" placeholder="Option D"></textarea>
+        <textarea name="D" rows="2" placeholder="Option D" required></textarea>
       </div>
       <!-- ==================================================== -->
       <!-- Type = 1 -> Edit the question -->
       <!-- Type = 2 -> Delete the question -->
       <input type="hidden" name="quizID" value="1">
-      <input type="hidden" name="type" value="1">
     </div>
     <div class="form-button">
       <button type="submit" class="delete">Delete</button>
@@ -116,6 +113,9 @@ foreach ($questions as $question) {
             <input type="hidden" value="' . $question->secondChoice . '">
             <input type="hidden" value="' . $question->thirdChoice . '">
             <input type="hidden" value="' . $question->fourthChoice . '">
+            <!-- This is the level -->
+            <input type="hidden" value="2" >
+
             <!-- This is the Quis ID -->
             <input type="hidden" value="' . $question->questionNumber . '">
           </i>

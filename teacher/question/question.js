@@ -51,15 +51,12 @@ let formWrapper = document.querySelector(".form-wrapper");
 // without formEdit cannot run ???????
 let formEdit = document.querySelector(".form-edit");
 let textarea = formEdit.getElementsByTagName("textarea");
+let option = formEdit.querySelectorAll("option");
 let input = formEdit.getElementsByTagName("input");
 
 formWrapper.querySelector(".cancel").addEventListener("click", () => {
   formWrapper.style.zIndex = -1;
   formWrapper.style.opacity = 0;
-});
-
-formWrapper.querySelector(".delete").addEventListener("click", () => {
-  input[1].value = 2;
 });
 
 let editBtn = document.getElementsByClassName("fa-edit");
@@ -75,6 +72,13 @@ for (let i = 0; i < editBtn.length; i++) {
     textarea[2].value = hiddenInput[2].value;
     textarea[3].value = hiddenInput[3].value;
     textarea[4].value = hiddenInput[4].value;
-    input[0].value = hiddenInput[5].value;
+
+    if (hiddenInput[5].value == "0") {
+      option[0].selected = true;
+    } else if (hiddenInput[5].value == "1") {
+      option[1].selected = true;
+    } else option[2].selected = true;
+
+    input[0].value = hiddenInput[6].value;
   });
 }
