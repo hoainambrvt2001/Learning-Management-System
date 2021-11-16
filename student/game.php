@@ -105,7 +105,7 @@
         </div>
         <div class="complete_text">You've completed the Quiz!</div>
         <div class="buttons">
-            <form action="results.php" method="POST">
+            <form action="results.php" method="GET">
                 <input id="resArray" type="hidden" name="answers">
                 <button id="result-btn" type="submit" class="more-detail">
                         Finish Quiz
@@ -130,19 +130,19 @@ let questions = [
                 echo '
                         {
                         numb: '.$k.',
-                        question: "'.$row->description.'",
-                        answer: "'.$row->option1.'",
+                        question: `'.$row->description.'`,
+                        answer: `'.$row->option1.'`,
                         options: [
-                        "'.$row->option1.'",
-                        "'.$row->option2.'",
-                        "'.$row->option3.'",
-                        "'.$row->option4.'",
-                        ],
+                        `'.$row->option1.'`,
+                        `'.$row->option2.'`,
+                        `'.$row->option3.'`,
+                        `'.$row->option4.'`,
+                        ].sort(() => Math.random() - 0.5),
                     },
                     ';
                     $k = $k + 1;    
             }
-    ?>,
+    ?>
  ];
 
 </script>

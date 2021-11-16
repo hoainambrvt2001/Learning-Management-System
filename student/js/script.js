@@ -27,7 +27,7 @@ continue_btn.onclick = ()=>{
     quiz_box.classList.add("activeQuiz"); //show quiz box
     showQuetions(0); //calling showQestions function
     queCounter(1); //passing 1 parameter to queCounter
-    startTimer(15); //calling startTimer function
+    startTimer(5); //calling startTimer function
     startTimerLine(0); //calling startTimerLine function
 }
 
@@ -101,16 +101,17 @@ function optionSelected(answer){
     
     if(userAns == correcAns){ //if user selected option is equal to array's correct answer
         useranswers.push("true");
-        answer.classList.add("correct"); //adding green color to correct selected option
-        console.log("Correct Answer");
+        //answer.classList.add("correct"); //adding green color to correct selected option
+        //console.log("Correct Answer");
     }else{
         useranswers.push("false");
-        answer.classList.add("incorrect"); //adding red color to correct selected option
-        console.log("Wrong Answer");
+        //answer.classList.add("incorrect"); //adding red color to correct selected option
+        //console.log("Wrong Answer");
 
         for(i=0; i < allOptions; i++){
             if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer 
-                option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+                //option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+                useranswers.push('false');
                 console.log("Auto selected correct answer.");
             }
         }
@@ -143,7 +144,8 @@ function startTimer(time){
             let correcAns = questions[que_count].answer; //getting correct answer from array
             for(i=0; i < allOptions; i++){
                 if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer
-                    option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+                    //option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+                    //useranswers.push('false');
                     console.log("Time Off: Auto selected correct answer.");
                 }
             }
