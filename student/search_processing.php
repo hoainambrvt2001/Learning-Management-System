@@ -31,7 +31,8 @@
     <?php include_once "components/header.php"?>
   </header>
   
-      <div class="text-center wow fadeInUp">
+  <div id="search_proc" style="min-height: 76vh;">
+    <div class="text-center wow fadeInUp">
         <h1 id="search-title">What You Found Here </h1>
         <div class="divider mx-auto"></div>
       </div>
@@ -185,6 +186,8 @@
       <div class="col-12 mt-4 text-center wow fadeInUp">
           <a href="index.php" id="back-search" class="btn btn-secondary">Back to home</a>
       </div>
+  </div>
+      
 
 
   <?php include_once "components/footer.php"?>

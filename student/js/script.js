@@ -101,11 +101,11 @@ function optionSelected(answer){
     
     if(userAns == correcAns){ //if user selected option is equal to array's correct answer
         useranswers.push("true");
-        answer.classList.add("correct"); //adding green color to correct selected option
+        //answer.classList.add("correct"); //adding green color to correct selected option
         console.log("Correct Answer");
     }else{
         useranswers.push("false");
-        answer.classList.add("incorrect"); //adding red color to correct selected option
+        //answer.classList.add("incorrect"); //adding red color to correct selected option
         console.log("Wrong Answer");
 
         for(i=0; i < allOptions; i++){
