@@ -42,7 +42,7 @@
               $item = $_POST['item'];
             }
           ?>
-        <form class="search-form" action="search_processing.php?item=<?php echo $item; ?>" method="POST">
+        <form class="search-form" action="search_processing.php" method="POST">
             <div class="row mt-5 ">
                 <div class="col-12 py-2 wow fadeInRight">
                   <div class="text-center wow fadeInUp">

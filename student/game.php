@@ -23,6 +23,8 @@ if (isset($_GET['id'])) {
         $post = $db->question;
         $result = $post->find(['quizId' => $quizID]);
     }
+} else {
+    header('Location: ./selection.php');
 }
 
 ?>
@@ -190,7 +192,7 @@ if (isset($_POST['score'])) {
 
     $search = $db->mark;
     $res = $search->findOne(['studentId'=>$studentID, 'quizId'=>$quizID]);
-
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
     if (empty($res)){
         $insertResult = $db->mark;
         $insertResult->insertOne([
@@ -198,6 +200,7 @@ if (isset($_POST['score'])) {
         'score' => $finalScore,
         'quizAnswer' => $resultArr,
         'quizId' => $_GET['id'],
+        'dateTaken'=>date('Y-m-d H:i:s')
     ]);
     } else {
         $search->updateOne(
@@ -205,6 +208,7 @@ if (isset($_POST['score'])) {
             ['$set'=>[
                 'score' => $finalScore,
                 'quizAnswer'=>$resultArr,
+                'dateTaken'=>date('Y-m-d H:i:s')
             ]]);
     }    
 }
