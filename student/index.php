@@ -99,8 +99,6 @@
 
                     $date = date($getDate);
                     
-                    echo getType($date);
-
                     if ($date <= strtotime($now)) {
                       echo '<p class="post-date" style="color:red">The deadline for this quiz is over</p>
                       <a href="gamescreen.php" class="btn btn-warning">Review</a>';

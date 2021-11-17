@@ -19,12 +19,7 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body class="body-results">
-<?php
-    if (isset($_POST['score'])){
-        $score  = $_POST['answers'];
-    }
-    var_dump($score);
-?>
+            
     <main class='result-main'> 
         <header class="result-header">
             <div class="quiz-title">
@@ -39,7 +34,42 @@
                 </h4> 
             </div>
             <h2 class="result-header">Your total score is</h2>
-        
+            <?php
+                include '../connect.php';
+                $post = $db->question;
+                $result = $post->find(['quizId'=>'Q-2037149586']);
+                if (isset($_POST['score'])){
+                    $k  =0;
+                    $score  = $_POST['answers'];
+                    preg_match_all('(true|false)', $score, $matches);
+                    var_dump($matches);
+                    foreach ($matches[0] as $res){
+            
+                        if ($res == 'true'){
+                            $k += 1;
+                        }
+                    }
+                    $finalScore = (double)$k/count($matches[0])*10;
+                    
+                    $counter = 0;
+
+                    $resultArr = [];
+                    foreach ($result as $row){
+                        $resultArr += [strval($row->_id)=>$matches[0][$counter]];
+                        $counter += 1;
+                    }
+                    echo '\n';
+                    var_dump($resultArr);
+
+                    $insertResult = $db->mark;
+                    $insertResult->insertOne([
+                        'studentId' =>'1234',
+                        'score' => $finalScore,
+                        'quizAnswer'=>$resultArr,
+                        'quizId'=>'123456',
+                    ]);
+                }
+            ?>
         </header>
         <section id="resultsDisplay" class="results-display">
             <h3 class="result-header"   id="score">
