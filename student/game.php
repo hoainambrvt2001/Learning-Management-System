@@ -1,42 +1,48 @@
 <?php
-    session_start();
+session_start();
 
-    if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+include 'getStudentInfo.php';
+if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+    header('Location: ../login/');
+} else {
+    if (isset($_SESSION['isTeacher']) && $_SESSION['isTeacher'] == true) {
         header('Location: ../login/');
+    }
+}
+include '../connect.php';
+if (isset($_GET['id'])) {
+    $quizID = $_GET['id'];
+
+    $post = $db->quiz;
+
+    $results = $post->findOne(['quizId' => $quizID]);
+
+    if (empty($results)) {
+        header('Location: ./selection.php');
     } else {
-        if (isset($_SESSION['isTeacher']) && $_SESSION['isTeacher'] == true){
-            header('Location: ../login/');
-        }
+        $post = $db->question;
+        $result = $post->find(['quizId' => $quizID]);
     }
-    include '../connect.php';
-    if (isset($_GET['id'])){
-        $quizID = $_GET['id'];
-        
-        $post = $db->quiz;
+} else {
+    header('Location: ./selection.php');
+}
 
-        $results = $post->findOne(['quizId'=>$quizID]);
-
-        if (empty($results)){
-            header('Location: ./selection.php');
-        } else {
-            $post = $db->question;
-            $result = $post->find(['quizId'=>$quizID]);
-        }
-    }
 ?>
 
 
 <!-- Created By CodingNepal - www.codingnepalweb.com  -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Time</title>
     <link rel="stylesheet" href="css/style.css">
     <!-- FontAweome CDN Link for Icons-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
+
 <body>
     <!-- start Quiz button -->
     <div class="wrapper">
@@ -74,7 +80,7 @@
             <div class="title">QUIZ NAME</div>
             <div class="timer">
                 <div class="time_left_txt">Time Left</div>
-                <div class="timer_sec">15</div>
+                <div class="timer_sec">5</div>
             </div>
             <div class="time_line"></div>
         </header>
@@ -105,12 +111,13 @@
         </div>
         <div class="complete_text">You've completed the Quiz!</div>
         <div class="buttons">
-            <form action="results.php" method="POST">
+            <form method="POST" action="game.php?id=<?php echo $quizID?>">
                 <input id="resArray" type="hidden" name="answers">
-                <button id="result-btn" type="submit" class="more-detail">
-                        Finish Quiz
+                <button id="result-btn" type="submit" class="more-detail" name="score">
+                    Finish Quiz
                 </button>
             </form>
+
         </div>
     </div>
 
@@ -121,28 +128,88 @@
     <script src="js/script.js"></script>
 
 </body>
+
 </html>
-<script>   
-let questions = [
-    <?php
-            $k = 1;
-            foreach ($result as $row){
-                echo '
+<script>
+    let questions = [
+        <?php
+        $k = 1;
+        foreach ($result as $row) {
+            echo '
                         {
-                        numb: '.$k.',
-                        question: "'.$row->description.'",
-                        answer: "'.$row->option1.'",
+                        numb: ' . $k . ',
+                        question: `' . $row->description . '`,
+                        answer: `' . $row->option1 . '`,
                         options: [
-                        "'.$row->option1.'",
-                        "'.$row->option2.'",
-                        "'.$row->option3.'",
-                        "'.$row->option4.'",
-                        ],
+                        `' . $row->option1 . '`,
+                        `' . $row->option2 . '`,
+                        `' . $row->option3 . '`,
+                        `' . $row->option4 . '`,
+                        ].sort(() => Math.random() - 0.5),
                     },
                     ';
-                    $k = $k + 1;    
-            }
-    ?>,
- ];
-
+            $k = $k + 1;
+        }
+        ?>
+    ];
 </script>
+<?php
+if (isset($_GET['id'])) {
+    $quizID = $_GET['id'];
+
+    $post = $db->quiz;
+
+    $result1 = $post->findOne(['quizId' => $quizID]);
+
+    if (empty($result1)) {
+        header('Location: ./selection.php');
+    } else {
+        $post = $db->question;
+        $result2 = $post->find(['quizId' => $quizID]);
+    }
+}
+$studentID = getStudent($_SESSION['username'])->studentId;
+if (isset($_POST['score'])) {
+    $k  = 0;
+    $score  = $_POST['answers'];
+    preg_match_all('(true|false)', $score, $matches);
+    //var_dump($matches);
+    foreach ($matches[0] as $res) {
+
+        if ($res == 'true') {
+            $k += 1;
+        }
+    }
+    $finalScore = (float)$k / count($matches[0]) * 10;
+
+    $counter = 0;
+
+    $resultArr = [];
+    foreach ($result2 as $row1) {
+        $resultArr += [strval($row1->_id) => $matches[0][$counter]];
+        $counter += 1;
+    }
+
+    $search = $db->mark;
+    $res = $search->findOne(['studentId'=>$studentID, 'quizId'=>$quizID]);
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
+    if (empty($res)){
+        $insertResult = $db->mark;
+        $insertResult->insertOne([
+        'studentId' => $studentID,
+        'score' => $finalScore,
+        'quizAnswer' => $resultArr,
+        'quizId' => $_GET['id'],
+        'dateTaken'=>date('Y-m-d H:i:s')
+    ]);
+    } else {
+        $search->updateOne(
+            ['studentId' => $studentID, 'quizId'=>$_GET['id']],
+            ['$set'=>[
+                'score' => $finalScore,
+                'quizAnswer'=>$resultArr,
+                'dateTaken'=>date('Y-m-d H:i:s')
+            ]]);
+    }    
+}
+?>

@@ -8,6 +8,8 @@
             header('Location: ../login/');
         }
     }
+    include '../connect.php';
+    include './getStudentInfo.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,114 +40,341 @@
       </div>
       <div class="row mt-5">
       <?php
-        include '../connect.php';
-        include './getStudentInfo.php';
-
-        if (isset($_GET['item'])){
+        if(isset($_GET['item'])){
           $item = $_GET['item'];
-          
-        } else {
-          header('Location ./search.php');
-        }
 
-        if (!isset($item) or $item == ''){
-          header('Location ./search.php');
-        }
-        
-        
-        $findCourse = $db->course;
-
-        $findQuiz = $db->quiz;
-
-        $resCourse = $findCourse->find(
-          array (
-            '$or'=> array (
-              array ('name'=>['$regex'=>'(?i)'.$item]),
-              array('courseId'=>['$regex'=>'(?i)'.$item]),
-            )
-          )          
-            );
-        $resQuiz = $findQuiz->find(
-          array (
-            '$or'=> array (
-              array ('name'=>['$regex'=>'(?i)'.$item]),
-              array('quizId'=>['$regex'=>'(?i)'.$item]),
-            )
-          )    
-            );
-
-        // foreach ($resCourse as $row){
-        //   echo $row->name;
-        // }
-        // foreach ($resQuiz as $row){
-        //   echo $row->name;
-        // }
-
-        if (empty($resQuiz) and empty($resCourse)){
-          echo '
-          <div class="not-found">
-          <div class="text-center wow fadeInUp">
-            <p class="subhead">Sorry, we don\'t have that!<p>
-          </div>
-          <div class="wow fadeInUp">
-            <img src="images/no-result.png" id="not-found-img">
-          </div>
-        </div>
-          ';
-        } elseif (!empty($resQuiz)){
-          
-          foreach ($resQuiz as $row){
-            echo '
+          //find in Quiz table
+          $findInQuiz = $db->quiz;
+          $res = $findInQuiz->find(['name'=>['$regex'=>'(?i)'.$item]]);
+          //var_dump($res);
+          $getStudentInfo = getStudent($_SESSION['username']);
+          $studentID = $getStudentInfo->studentId;
+          foreach($res as $row){
+            $getQuizInfo = getQuiz($row->quizId);
             
+            $findScore = $db->mark;
+
+            $resScore = $findScore->findOne(['studentId'=>$studentID, 'quizId'=>$row->quizId]);
+
+            if (empty($resScore)){
+              $score = "";
+            } else {
+              $score = $resScore->score;
+            }
+            echo '
             <div class="col-lg-3 py-3 wow fadeInUp">
-              <div id="search-card" class="card-blog">
+              <div class="card-blog">
                 <div class="header">
                   <div class="post-thumb">
-                    <img src="images/quiz-1.jpg" alt="">
+                    <img src="images/quiz-blog.png" alt="">
                   </div>
                 </div>
                 <div class="body">
-                  <h5 class="post-title">'.$row->name.'</h5>
-                  <h6>Course: '.getCourse($row->courseId)->name.' </h6>
-                  <h6>Teacher: '.getTeacher($row->teacherId)->name.' </h6>
-                  
-                  <a href="game.php?'.$row->quizId.'" class="btn btn-secondary">Learn more</a>
+                  <h5 class="post-title"><a href="results.php?quizID='.$getQuizInfo->quizId.'">'.$getQuizInfo->name.'</a></h5>
+                  <p class="post-date">Course: <a href="./search_processing.php?item='.getCourse($getQuizInfo->courseId)->name.'">'.getCourse($getQuizInfo->courseId)->name.'</a> ('.$getQuizInfo->courseId.')</p>
+                  <p class="post-date">Created by: <a href="./search_processing.php?item='.getTeacher($getQuizInfo->teacherId)->name.'">'.getTeacher($getQuizInfo->teacherId)->name.'</p>
+                  <p class="post-date" style="color:green">Score: '.$score.'</p>
+                  <p class="post-date" style="color:red">Deadline: '.$getQuizInfo->dueDate.'</p>' ?>
+                  <?php
+                    $now = time();
+                    $getDate = (string)$getQuizInfo->dueDate;
+
+                    $date = date($getDate);
+                    
+                    if ($date <= strtotime($now)) {
+                      echo '<p class="post-date" style="color:red">The deadline for this quiz is over</p>
+                      <a href="gamescreen.php" class="btn btn-warning">Review</a>';
+                    } else {
+                      echo '
+                      <a href="game.php?id='.$row->quizId.'" class="btn btn-secondary">Do it</a>';
+                    }
+                  ?>
+                  <?php
+                  echo '
                 </div>
               </div>
             </div>
-          
-            ';
+              ';
           }
-        } elseif (!empty($resCourse)){
 
-          foreach($resCourse as $row){
-              $getQuiz = $db->quiz;
-              $res = $getQuiz->find(['quizId'=>$row->quizId]);
-              if(empty($res)){
-                echo "Nothing found";
+          //find in teacher table:
+          $findInTeacher = $db->teacher;
+          $res = $findInTeacher->find(['name'=>['$regex'=>'(?i)'.$item]]);
+          foreach ($res as $teacherRow){
+            $findQuiz = $db->quiz;
+            $resQuiz = $findQuiz->find(['teacherId'=>$teacherRow->teacherId]);
+
+            foreach ($resQuiz as $quizRow){
+              $getQuizInfo = getQuiz($quizRow->quizId);
+              $findScore = $db->mark;
+
+              $resScore = $findScore->findOne(['studentId'=>$studentID, 'quizId'=>$quizRow->quizId]);
+
+              if (empty($resScore)){
+                $score = "";
+              } else {
+                $score = $resScore->score;
               }
-              foreach($res as $value){
-                echo '
-      
-                <div class="col-lg-3 py-3 wow fadeInUp">
-                  <div id="search-card" class="card-blog">
-                    <div class="header">
-                      <div class="post-thumb">
-                        <img src="images/quiz-1.jpg" alt="">
-                      </div>
-                    </div>
-                    <div class="body">
-                      <h5 class="post-title">'.$value->name.'</h5>
-                      <h6>Course: '.$row->name.' </h6>
-                      <h6>Teacher: '.getTeacher($row->teacherId)->name.' </h6>
-                      
-                      <a href="game.php?'.$row->quizId.'" class="btn btn-secondary">Learn more</a>
+              echo '
+              <div class="col-lg-3 py-3 wow fadeInUp">
+                <div class="card-blog">
+                  <div class="header">
+                    <div class="post-thumb">
+                      <img src="images/quiz-blog.png" alt="">
                     </div>
                   </div>
+                  <div class="body">
+                    <h5 class="post-title"><a href="results.php?quizID='.$getQuizInfo->quizId.'">'.$getQuizInfo->name.'</a></h5>
+                    <p class="post-date">Course: <a href="./search_processing.php?item='.getCourse($getQuizInfo->courseId)->name.'">'.getCourse($getQuizInfo->courseId)->name.'</a> ('.$getQuizInfo->courseId.')</p>
+                    <p class="post-date">Created by: <a href="./search_processing.php?item='.$teacherRow->name.'">'.$teacherRow->name.'</a></p>
+                    <p class="post-date" style="color:green">Score: '.$score.'</p>
+                    <p class="post-date" style="color:red">Deadline: '.$getQuizInfo->dueDate.'</p>' ?>
+                    <?php
+                      $now = time();
+                      $getDate = (string)$getQuizInfo->dueDate;
+
+                      $date = date($getDate);
+                      
+                      if ($date <= strtotime($now)) {
+                        echo '<p class="post-date" style="color:red">The deadline for this quiz is over</p>
+                        <a href="gamescreen.php" class="btn btn-warning">Review</a>';
+                      } else {
+                        echo '
+                        <a href="game.php?id='.$quizRow->quizId.'" class="btn btn-secondary">Do it</a>';
+                      }
+                    ?>
+                    <?php
+                    echo '
+                  </div>
                 </div>
-              
+              </div>
                 ';
+            }
+          }
+
+          //Find in Course table
+          $findInCourse = $db->course;
+          $res = $findInCourse->find(['name'=>['$regex'=>'(?i)'.$item]]);
+
+          foreach($res as $courseRow){
+            $findQuiz = $db->quiz;
+            $resQuiz = $findQuiz->find(['courseId'=>$courseRow->courseId]);
+
+            foreach($resQuiz as $quizRow){
+              $getQuizInfo = getQuiz($quizRow->quizId);
+              $findScore = $db->mark;
+
+              $resScore = $findScore->findOne(['studentId'=>$studentID, 'quizId'=>$quizRow->quizId]);
+
+              if (empty($resScore)){
+                $score = "";
+              } else {
+                $score = $resScore->score;
               }
+              echo '
+              <div class="col-lg-3 py-3 wow fadeInUp">
+                <div class="card-blog">
+                  <div class="header">
+                    <div class="post-thumb">
+                      <img src="images/quiz-blog.png" alt="">
+                    </div>
+                  </div>
+                  <div class="body">
+                    <h5 class="post-title"><a href="results.php?quizID='.$getQuizInfo->quizId.'">'.$getQuizInfo->name.'</a></h5>
+                    <p class="post-date">Course: <a href="./search_processing.php?item='.$courseRow->name.'">'.$courseRow->name.'</a> ('.$getQuizInfo->courseId.')</p>
+                    <p class="post-date">Created by: <a href="./search_processing.php?item='.getTeacher($getQuizInfo->teacherId)->name.'">'.getTeacher($getQuizInfo->teacherId)->name.'</a></p>
+                    <p class="post-date" style="color:green">Score: '.$score.'</p>
+                    <p class="post-date" style="color:red">Deadline: '.$getQuizInfo->dueDate.'</p>' ?>
+                    <?php
+                      $now = time();
+                      $getDate = (string)$getQuizInfo->dueDate;
+
+                      $date = date($getDate);
+                      
+                      if ($date <= strtotime($now)) {
+                        echo '<p class="post-date" style="color:red">The deadline for this quiz is over</p>
+                        <a href="gamescreen.php" class="btn btn-warning">Review</a>';
+                      } else {
+                        echo '
+                        <a href="game.php?id='.$quizRow->quizId.'" class="btn btn-secondary">Do it</a>';
+                      }
+                    ?>
+                    <?php
+                    echo '
+                  </div>
+                </div>
+              </div>
+                ';
+            }
+          }
+        }
+
+        if (isset($_POST['search-service'])){
+          $item = $_POST['item'];
+          
+          //find in Quiz table
+          $findInQuiz = $db->quiz;
+          $res = $findInQuiz->find(['name'=>['$regex'=>'(?i)'.$item]]);
+          //var_dump($res);
+          $getStudentInfo = getStudent($_SESSION['username']);
+          $studentID = $getStudentInfo->studentId;
+          foreach($res as $row){
+            $getQuizInfo = getQuiz($row->quizId);
+            
+            $findScore = $db->mark;
+
+            $resScore = $findScore->findOne(['studentId'=>$studentID, 'quizId'=>$row->quizId]);
+
+            if (empty($resScore)){
+              $score = "";
+            } else {
+              $score = $resScore->score;
+            }
+            echo '
+            <div class="col-lg-3 py-3 wow fadeInUp">
+              <div class="card-blog">
+                <div class="header">
+                  <div class="post-thumb">
+                    <img src="images/quiz-blog.png" alt="">
+                  </div>
+                </div>
+                <div class="body">
+                  <h5 class="post-title"><a href="results.php?quizID='.$getQuizInfo->quizId.'">'.$getQuizInfo->name.'</a></h5>
+                  <p class="post-date">Course: <a href="./search_processing.php?item='.getCourse($getQuizInfo->courseId)->name.'">'.getCourse($getQuizInfo->courseId)->name.'</a> ('.$getQuizInfo->courseId.')</p>
+                  <p class="post-date">Created by: <a href="./search_processing.php?item='.getTeacher($getQuizInfo->teacherId)->name.'">'.getTeacher($getQuizInfo->teacherId)->name.'</p>
+                  <p class="post-date" style="color:green">Score: '.$score.'</p>
+                  <p class="post-date" style="color:red">Deadline: '.$getQuizInfo->dueDate.'</p>' ?>
+                  <?php
+                    $now = time();
+                    $getDate = (string)$getQuizInfo->dueDate;
+
+                    $date = date($getDate);
+                    
+                    if ($date <= strtotime($now)) {
+                      echo '<p class="post-date" style="color:red">The deadline for this quiz is over</p>
+                      <a href="gamescreen.php" class="btn btn-warning">Review</a>';
+                    } else {
+                      echo '
+                      <a href="game.php?id='.$quizRow->quizId.'" class="btn btn-secondary">Do it</a>';
+                    }
+                  ?>
+                  <?php
+                  echo '
+                </div>
+              </div>
+            </div>
+              ';
+          }
+
+          //find in teacher table:
+          $findInTeacher = $db->teacher;
+          $res = $findInTeacher->find(['name'=>['$regex'=>'(?i)'.$item]]);
+          foreach ($res as $teacherRow){
+            $findQuiz = $db->quiz;
+            $resQuiz = $findQuiz->find(['teacherId'=>$teacherRow->teacherId]);
+
+            foreach ($resQuiz as $quizRow){
+              $getQuizInfo = getQuiz($quizRow->quizId);
+              $findScore = $db->mark;
+
+              $resScore = $findScore->findOne(['studentId'=>$studentID, 'quizId'=>$quizRow->quizId]);
+
+              if (empty($resScore)){
+                $score = "";
+              } else {
+                $score = $resScore->score;
+              }
+              echo '
+              <div class="col-lg-3 py-3 wow fadeInUp">
+                <div class="card-blog">
+                  <div class="header">
+                    <div class="post-thumb">
+                      <img src="images/quiz-blog.png" alt="">
+                    </div>
+                  </div>
+                  <div class="body">
+                    <h5 class="post-title"><a href="results.php?quizID='.$getQuizInfo->quizId.'">'.$getQuizInfo->name.'</a></h5>
+                    <p class="post-date">Course: <a href="./search_processing.php?item='.getCourse($getQuizInfo->courseId)->name.'">'.getCourse($getQuizInfo->courseId)->name.'</a> ('.$getQuizInfo->courseId.')</p>
+                    <p class="post-date">Created by: <a href="./search_processing.php?item='.$teacherRow->name.'">'.$teacherRow->name.'</a></p>
+                    <p class="post-date" style="color:green">Score: '.$score.'</p>
+                    <p class="post-date" style="color:red">Deadline: '.$getQuizInfo->dueDate.'</p>' ?>
+                    <?php
+                      $now = time();
+                      $getDate = (string)$getQuizInfo->dueDate;
+
+                      $date = date($getDate);
+                      
+                      if ($date <= strtotime($now)) {
+                        echo '<p class="post-date" style="color:red">The deadline for this quiz is over</p>
+                        <a href="gamescreen.php" class="btn btn-warning">Review</a>';
+                      } else {
+                        echo '
+                        <a href="game.php?id='.$quizRow->quizId.'" class="btn btn-secondary">Do it</a>';
+                      }
+                    ?>
+                    <?php
+                    echo '
+                  </div>
+                </div>
+              </div>
+                ';
+            }
+          }
+
+          //Find in Course table
+          $findInCourse = $db->course;
+          $res = $findInCourse->find(['name'=>['$regex'=>'(?i)'.$item]]);
+
+          foreach($res as $courseRow){
+            $findQuiz = $db->quiz;
+            $resQuiz = $findQuiz->find(['courseId'=>$courseRow->courseId]);
+
+            foreach($resQuiz as $quizRow){
+              $getQuizInfo = getQuiz($quizRow->quizId);
+              $findScore = $db->mark;
+
+              $resScore = $findScore->findOne(['studentId'=>$studentID, 'quizId'=>$quizRow->quizId]);
+
+              if (empty($resScore)){
+                $score = "";
+              } else {
+                $score = $resScore->score;
+              }
+              echo '
+              <div class="col-lg-3 py-3 wow fadeInUp">
+                <div class="card-blog">
+                  <div class="header">
+                    <div class="post-thumb">
+                      <img src="images/quiz-blog.png" alt="">
+                    </div>
+                  </div>
+                  <div class="body">
+                    <h5 class="post-title"><a href="results.php?quizID='.$getQuizInfo->quizId.'">'.$getQuizInfo->name.'</a></h5>
+                    <p class="post-date">Course: <a href="./search_processing.php?item='.$courseRow->name.'">'.$courseRow->name.'</a> ('.$getQuizInfo->courseId.')</p>
+                    <p class="post-date">Created by: <a href="./search_processing.php?item='.getTeacher($getQuizInfo->teacherId)->name.'">'.getTeacher($getQuizInfo->teacherId)->name.'</a></p>
+                    <p class="post-date" style="color:green">Score: '.$score.'</p>
+                    <p class="post-date" style="color:red">Deadline: '.$getQuizInfo->dueDate.'</p>' ?>
+                    <?php
+                      $now = time();
+                      $getDate = (string)$getQuizInfo->dueDate;
+
+                      $date = date($getDate);
+                      
+                      if ($date <= strtotime($now)) {
+                        echo '<p class="post-date" style="color:red">The deadline for this quiz is over</p>
+                        <a href="gamescreen.php" class="btn btn-warning">Review</a>';
+                      } else {
+                        echo '
+                        <a href="game.php?id='.$quizRow->quizId.'" class="btn btn-secondary">Do it</a>';
+                      }
+                    ?>
+                    <?php
+                    echo '
+                  </div>
+                </div>
+              </div>
+                ';
+            }
           }
         }
       ?>
@@ -161,7 +390,7 @@
       </div> -->
 
       <!--Show results like this class-->  
-      <!-- <div class="row mt-5">
+       <!-- <div class="row mt-5">
         <div class="col-lg-12 py-3 wow fadeInUp">
           <div id="search-card" class="card-blog">
             <div class="header">
