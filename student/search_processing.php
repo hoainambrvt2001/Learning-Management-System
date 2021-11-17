@@ -33,7 +33,7 @@
     <?php include_once "components/header.php"?>
   </header>
   
-  <div id="search_proc" style="min-height: 76vh;">
+<div id="search_proc" style="min-height: 76vh;">
     <div class="text-center wow fadeInUp">
         <h1 id="search-title">What You Found Here </h1>
         <div class="divider mx-auto"></div>
