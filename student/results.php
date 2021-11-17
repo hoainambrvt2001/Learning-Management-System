@@ -19,7 +19,12 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body class="body-results">
-   
+<?php
+    if (isset($_POST['score'])){
+        $score  = $_POST['answers'];
+    }
+    var_dump($score);
+?>
     <main class='result-main'> 
         <header class="result-header">
             <div class="quiz-title">

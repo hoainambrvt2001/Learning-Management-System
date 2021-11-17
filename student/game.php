@@ -74,7 +74,7 @@
             <div class="title">QUIZ NAME</div>
             <div class="timer">
                 <div class="time_left_txt">Time Left</div>
-                <div class="timer_sec">15</div>
+                <div class="timer_sec">5</div>
             </div>
             <div class="time_line"></div>
         </header>
@@ -105,9 +105,9 @@
         </div>
         <div class="complete_text">You've completed the Quiz!</div>
         <div class="buttons">
-            <form action="results.php" method="GET">
+            <form action="results.php" method="POST" action="results.php">
                 <input id="resArray" type="hidden" name="answers">
-                <button id="result-btn" type="submit" class="more-detail">
+                <button id="result-btn" type="submit" class="more-detail" name="score">
                         Finish Quiz
                 </button>
             </form>

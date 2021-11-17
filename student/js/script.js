@@ -31,7 +31,7 @@ continue_btn.onclick = ()=>{
     startTimerLine(0); //calling startTimerLine function
 }
 
-let timeValue =  15;
+let timeValue =  5;
 let que_count = 0;
 let que_numb = 1;
 let counter;
@@ -111,7 +111,7 @@ function optionSelected(answer){
         for(i=0; i < allOptions; i++){
             if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer 
                 //option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
-                useranswers.push('false');
+                //useranswers.push('false');
                 console.log("Auto selected correct answer.");
             }
         }
@@ -142,10 +142,11 @@ function startTimer(time){
             timeText.textContent = "Time Off"; //change the time text to time off
             const allOptions = option_list.children.length; //getting all option items
             let correcAns = questions[que_count].answer; //getting correct answer from array
+            //if (userAns == "") { useranswers.push("false");}
             for(i=0; i < allOptions; i++){
                 if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer
                     //option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
-                    //useranswers.push('false');
+                    useranswers.push("false");
                     console.log("Time Off: Auto selected correct answer.");
                 }
             }
