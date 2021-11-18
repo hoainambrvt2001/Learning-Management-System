@@ -70,15 +70,24 @@
 
           $post = $db->mark;
 
-          $id = getStudent($_SESSION['username'])->studentID;
+          $id = getStudent($_SESSION['username'])->studentId;
           
-          $res = $post->find(['studentID' => strval($id)]); //$id must be converted to string
+          $res = $post->find(
+            [
+              'studentId' => strval($id)
+            ],
+            [
+              'limit' => 3,
+              'sort' => ['dateTaken' =>-1]
+            ]
+          ); //$id must be converted to string
 
 
           if (empty($res)){
             echo 'You have not done any quiz';
           } else {
             foreach ($res as $row){
+              $getQuizInfo = getQuiz($row->quizId);
               echo '
               <div class="col-lg-4 py-3 wow fadeInUp">
               <div class="card-blog">
@@ -88,14 +97,14 @@
                   </div>
                 </div>
                 <div class="body">
-                  <h5 class="post-title">'.getQuiz($row->quizID)->name.'</h5>
-                  <p class="post-date">Course: '.getCourse(getQuiz($row->quizID)->courseID)->name.' ('.getQuiz($row->quizID)->courseID.')</p>
-                  <p class="post-date">Created by: '.getTeacher(getQuiz($row->quizID)->teacherID)->name.'</p>
+                  <h5 class="post-title"><a href="results.php?quizID='.$row->quizId.'">'.getQuiz($row->quizId)->name.'</a></h5>
+                  <p class="post-date">Course: <a href="search_processing.php?item='.getCourse($getQuizInfo->courseId)->name.'">'.getCourse($getQuizInfo->courseId)->name.'</a> ('.$getQuizInfo->courseId.')</p>
+                  <p class="post-date">Created by: <a href="search_processing.php?item='.getTeacher($getQuizInfo->teacherId)->name.'">'.getTeacher($getQuizInfo->teacherId)->name.'</a></p>
                   <p class="post-date" style="color:green">Score: '.$row->score.'</p>
-                  <p class="post-date" style="color:red">Deadline: '.getQuiz($row->quizID)->dueDate.'</p>' ?>
+                  <p class="post-date" style="color:red">Deadline: '.$getQuizInfo->dueDate.'</p>' ?>
                   <?php
                     $now = time();
-                    $getDate = (string)getQuiz($row->quizID)->dueDate;
+                    $getDate = (string)$getQuizInfo->dueDate;
 
                     $date = date($getDate);
                     
@@ -104,7 +113,7 @@
                       <a href="gamescreen.php" class="btn btn-warning">Review</a>';
                     } else {
                       echo '
-                      <a href="gamescreen.php" class="btn btn-secondary">Do it</a>';
+                      <a href="game.php?id='.$row->quizId.'" class="btn btn-secondary">Do it</a>';
                     }
                   ?>
                   <?php

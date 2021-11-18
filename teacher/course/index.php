@@ -115,7 +115,6 @@ if (isset($_POST['btnDeleteCourse'])) {
     </div>
     <input type="text" name="ipEditCourseName" class="input" placeholder="Course Name" />
     <input type="hidden" name="courseId">
-    <input type="hidden" name="type" value="1">
     <div class="form-button">
       <div class="cancel">Cancel</div>
       <button type="submit" class="submit" name="btnEditCourseName">Submit</button>
@@ -130,7 +129,6 @@ if (isset($_POST['btnDeleteCourse'])) {
       <div class="cancel">Cancel</div>
       <button type="submit" class="submit" name="btnDeleteCourse">Submit</button>
       <input type="hidden" name="courseId">
-      <input type="hidden" name="type" value="2">
     </div>
   </form>
 </div>

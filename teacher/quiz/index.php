@@ -41,7 +41,41 @@ if (isset($_POST['btnAddQuiz'])) {
     ]);
   }
 }
+
+if (isset($_POST['btnEditQuiz'])) {
+  $quizCollection->updateOne(
+    ['quizId' => $_POST['quizId']],
+    ['$set' => [
+      'name' => $_POST['editQuizName'],
+      'startDate' => $_POST['editStartDate'],
+      'dueDate' => $_POST['editDueDate']
+    ]]
+  );
+}
+
+if (isset($_POST['btnDeleteQuiz'])) {
+  $targetQuizId = $_POST['quizId'];
+
+  // Get all needed collection:
+  $markCollection = $mydb->mark;
+  $questionCollection = $mydb->question;
+
+  // Delete all marks and questions related to quizId:
+  $markCollection->deleteMany([
+    'quizId' => $targetQuizId
+  ]);
+  $questionCollection->deleteMany([
+    'quizId' => $targetQuizId
+  ]);
+
+  // Delete all quizzes and courseId:
+  $quizCollection->deleteOne(['quizId' => $targetQuizId]);
+}
+
 ?>
+
+<!-- Icon -->
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 <form class="form-quiz" id="form-quiz" method="POST">
   <div class="form-top">
@@ -63,7 +97,7 @@ if (isset($_POST['btnAddQuiz'])) {
       <span class="wrong"></span>
     </div>
   </div>
-  <div class="form-wrapper">
+  <div class="question-wrapper">
     <div class='line'></div>
     <div class="form-header">
       <div class="form-title">
@@ -109,6 +143,47 @@ if (isset($_POST['btnAddQuiz'])) {
   </div>
 </form>
 
+<!-- Edit form -->
+<div class="form-wrapper">
+  <form class="form-edit" method="POST">
+    <div class="form-top">
+      <div class="form-name">
+        <p class="title">Quiz name</p>
+        <input type="text" name="editQuizName" placeholder="Quiz name" required>
+      </div>
+      <div>
+        <div class="date-flex">
+          <div class="date">
+            <p>Start Date </p>
+            <input type="date" name="editStartDate" class="select-date" placeholder="Select Date" required>
+          </div>
+          <div class="date">
+            <p>Due Date </p>
+            <input type="date" name="editDueDate" class="select-date" placeholder="Select Date" required>
+          </div>
+        </div>
+        <span class="wrong"></span>
+      </div>
+    </div>
+    <input type="hidden" name="quizId">
+    <div class="form-button">
+      <div class="cancel">Cancel</div>
+      <button type="submit" class="submit" name="btnEditQuiz">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="form-wrapper">
+  <form class="form-delete" method="POST">
+    <p style="text-align: center">Do you want to delete this quiz ?</p>
+    <div class="form-button">
+      <div class="cancel">Cancel</div>
+      <button type="submit" class="submit" name="btnDeleteQuiz">Submit</button>
+      <input type="hidden" name="quizId">
+    </div>
+  </form>
+</div>
+
 <h1><?php echo $title; ?></h1>
 
 <div class="content-container">
@@ -122,8 +197,17 @@ if (isset($_POST['btnAddQuiz'])) {
   foreach ($quizzes as $quiz) {
     echo '<form class="card" action="./?page=question&quizName=' . $quiz->name . '" method="POST">
             <div class="card-top">
-                <p>' . $quiz->name . '</p>
-                <button type="submit" name="btnQuizId">VIEW</button>
+                <p class="quiz-name">' . $quiz->name . '</p>
+                <div style="display: flex; column-gap: 5px;">
+                  <button type="submit" name="btnQuizId" id="btn-test">VIEW</button>
+                  <div class="drop-down">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <div class="drop-down-list">
+                      <p class="edit">Edit quiz</p>
+                      <p class="delete">Delete quiz</p>
+                    </div>
+                  </div>
+                </div>
             </div>
             <div class="card-bot">
               <p class="date">' . $quiz->startDate . '</p>

@@ -14,7 +14,7 @@
 
         $post = $db->teacher;
 
-        $result = $post->findOne(['teacherID'=>$teacherID]);
+        $result = $post->findOne(['teacherId'=>$teacherID]);
 
         return $result;
     }
@@ -24,7 +24,7 @@
 
         $post = $db->course;
 
-        $result = $post->findOne(['courseID'=>$courseID]);
+        $result = $post->findOne(['courseId'=>$courseID]);
 
         return $result;
     }
@@ -34,7 +34,7 @@
 
         $post = $db->quiz;
 
-        $result = $post->findOne(['quizID'=>$quizID]);
+        $result = $post->findOne(['quizId'=>$quizID]);
 
         return $result;
     }
