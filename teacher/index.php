@@ -1,16 +1,36 @@
 <?php
 session_start();
 
-$_SESSION['teacherID'] = "TC-345678912";
-$_SESSION['courseID'] = 'CO3001';
-$_SESSION['quizID'] = '617a6de6fc13ae3d9c000006';
+$_SESSION['teacherId'] = "TC-4203517869";
 
+if (isset($_POST['btnCourseId'])) {
+  $_SESSION['courseId'] = $_POST['courseId'];
+  if ($_GET['courseName']) $_SESSION['courseName'] = $_GET['courseName'];
+}
+
+if (isset($_POST['btnQuizId'])) {
+  $_SESSION['quizId'] = $_POST['quizId'];
+  if ($_GET['quizName']) $_SESSION['quizName'] = $_GET['quizName'];
+}
+
+# Update page:
 $page = "course";
+if (isset($_GET["page"])) {
+  $page = $_GET["page"];
+}
 
-if (isset($_GET["page"])) $page = $_GET["page"];
+# Update courseName/Id and quizName/Id
+if ($page == 'course') {
+  $_SESSION['courseId'] = false;
+  $_SESSION['courseName'] = false;
+}
+if ($page == 'quiz') {
+  $_SESSION['quizId'] = false;
+  $_SESSION['quizName'] = false;
+}
 
 $button = "";
-$title = ""; 
+$title = "";
 if ($page == "course") {
   $button = "Create a course";
   $title = "All courses";
@@ -23,13 +43,13 @@ if ($page == "course") {
 ?>
 
 <?php
-  // if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
-  //     header('Location: ../login/');
-  // } else {
-  //     if (isset($_SESSION['isStudent']) && $_SESSION['isStudent'] == true){
-  //         header('Location: ../student/');
-  //     }
-  // }
+// if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+//     header('Location: ../login/');
+// } else {
+//     if (isset($_SESSION['isStudent']) && $_SESSION['isStudent'] == true){
+//         header('Location: ../student/');
+//     }
+// }
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +62,7 @@ if ($page == "course") {
   <link rel="shortcut icon" href="">
   <title>Home</title>
   <?php
-    if ($page == "result") echo "
+  if ($page == "result") echo "
       <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
       <link href='http://www.jqueryscript.net/css/jquerysctipttop.css' rel='stylesheet' type='text/css'>
     ";
@@ -50,7 +70,7 @@ if ($page == "course") {
   <link rel="stylesheet" href="./teacher.css">
   <link rel="stylesheet" href="./<?php echo "$page/$page"; ?>.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+
 </head>
 
 <body>
@@ -73,14 +93,25 @@ if ($page == "course") {
               <div class="menu-line"></div>
               <div class="menu-line"></div>
             </div>
-            <p>Your courses</p>
+            <!-- Path -->
+            <p>Your courses
+              <?php
+              if ($_SESSION['courseId']) {
+                echo ' > ' . $_SESSION['courseName'];
+              }
+              if ($_SESSION['quizId']) {
+                echo ' > ' . $_SESSION['quizName'];
+              }
+              if ($page == "result") echo " > View result";
+              ?>
+            </p>
           </div>
           <div class="menu-list">
 
           </div>
           <div class="nav-right">
             <?php
-              if ($page != "result") echo "
+            if ($page != "result") echo "
               <div class='create-btn'>
                 <p>$button</p>
               </div>
@@ -92,7 +123,7 @@ if ($page == "course") {
       <div class="content-wrapper">
         <?php
         require "../database/connectDatabase.php";
-        $mydb = $client->mydb;
+        $mydb = $client->data;
         include "./$page/index.php";
         ?>
       </div>

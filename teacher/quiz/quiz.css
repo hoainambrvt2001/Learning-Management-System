@@ -1,8 +1,10 @@
+/* Styles for invalid input ============================ */
 .wrong {
   color: red;
   font-size: 13px;
 }
 
+/* Form to add quiz =================================== */
 .form-quiz {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
@@ -19,6 +21,7 @@
   transition: opacity 0.15s, height 0.15s, margin-top 0.15s, box-shadow 0.3s;
 }
 
+/* Form wrapper for each question ========================== */
 .form-wrapper {
   padding-top: 20px;
   display: flex;
@@ -27,6 +30,7 @@
   position: relative;
 }
 
+/* Line between each question ============================== */
 .line {
   position: absolute;
   height: 1px;
@@ -229,6 +233,7 @@
   color: white;
 }
 
+/* Style for card wrapper ============================== */
 .content-container {
   display: grid;
   grid-template-columns: minmax(0, 400px);
@@ -236,6 +241,7 @@
   padding: 0 10px;
 }
 
+/* Style for card ======================================= */
 .card {
   padding: 15px 20px;
   width: 100%;
@@ -312,6 +318,7 @@
   font-weight: 500;
 }
 
+/* Line between start and due date */
 .horizon-line {
   width: 100%;
   max-width: 85px;
@@ -341,8 +348,8 @@
   }
 
   .content-container {
-    display: flex;
-    justify-content: center;
+    margin: 0 auto;
+    grid-template-columns: repeat(2, minmax(0, 400px));
     padding: 0;
     column-gap: 30px;
     flex-wrap: wrap;
@@ -362,5 +369,11 @@
 
   .fa-minus-circle:hover::before {
     color: rgba(239, 68, 68, 1);
+  }
+}
+
+@media (min-width: 1200px) {
+  .content-container {
+    grid-template-columns: repeat(3, minmax(0, 400px));
   }
 }

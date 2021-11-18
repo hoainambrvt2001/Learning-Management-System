@@ -8,6 +8,7 @@ let count = 1;
 let initWrapper = form.querySelector(".form-wrapper");
 let wrapperHeight = initWrapper.clientHeight;
 
+// Calculating add quiz form height
 if (window.innerWidth < 768) {
   height = 860;
 } else {
@@ -22,6 +23,7 @@ if (window.innerWidth < 417) {
   height += 60;
 }
 
+// Reset state when resize
 window.addEventListener("resize", () => {
   toggle = false;
   form.style.opacity = 0;
@@ -30,6 +32,8 @@ window.addEventListener("resize", () => {
   form.style.marginTop = 0;
   initWrapper = form.querySelector(".form-wrapper");
   initRemove = initWrapper.getElementsByClassName("fa-close");
+
+  // Calculating add quiz form height
   wrapperHeight = initWrapper.clientHeight;
   if (window.innerWidth < 768) {
     height = 860 + wrapperHeight * (count - 1);
@@ -46,6 +50,7 @@ window.addEventListener("resize", () => {
   }
 });
 
+// Create button event in add quiz form
 createBtn.addEventListener("click", () => {
   toggle = !toggle;
   if (toggle) {
@@ -61,6 +66,7 @@ createBtn.addEventListener("click", () => {
   }
 });
 
+// Cancel event in add quiz form
 form.querySelector(".cancel").addEventListener("click", () => {
   toggle = false;
   form.style.opacity = 0;
@@ -71,9 +77,9 @@ form.querySelector(".cancel").addEventListener("click", () => {
 let addBtn = document.querySelector(".add-btn");
 let ipCount = document.querySelector(".ipCount");
 
+// Add more question
 addBtn.addEventListener("click", () => {
-  count++;
-  ipCount.value = count;
+  ipCount.value = ++count;
   let wrapper = document.createElement("div");
   wrapper.className = "form-wrapper";
   wrapper.innerHTML = `
@@ -86,12 +92,10 @@ addBtn.addEventListener("click", () => {
       <div class="form-input">
         <textarea name="description-${count}" rows="2" placeholder="Question Description" required></textarea>
         <div class="form-select">
-          <input type="hidden" name="level">
           <select name="lvlOption-${count}" required>
-            <option style="display: none">Level:</option>
-            <option value="0">Easy</option>
-            <option value="1">Medium</option>
-            <option value="2">Hard</option>
+            <option value="1">Easy</option>
+            <option value="2">Medium</option>
+            <option value="3">Hard</option>
           </select>
         </div>
       </div>
@@ -116,16 +120,18 @@ addBtn.addEventListener("click", () => {
     </div>
   `;
 
+  // Calculating height for the form
   height += wrapperHeight;
   form.style.height = `${height}px`;
   form.insertBefore(wrapper, addBtn);
 
   wrapper = form.getElementsByClassName("form-wrapper");
   wrapper = wrapper[wrapper.length - 1];
-  console.log(wrapper);
+
+  // Add remove icon event
   wrapper.querySelector(".fa-minus-circle").addEventListener("click", () => {
     wrapper.remove();
-    count--;
+    ipCount.value = --count;
     height -= wrapperHeight;
     form.style.height = `${height}px`;
     let counting = document.getElementsByClassName("count");
@@ -135,26 +141,34 @@ addBtn.addEventListener("click", () => {
   });
 });
 
-let temp = document.getElementsByName("date");
+let selectDate = document.getElementsByClassName("select-date");
 let dateChange = 0;
 let wrong = true;
 
+// Validate date function
+// Compare start date vs due date
 const validateDate = () => {
-  if (new Date(temp[0].value).getTime() > new Date(temp[1].value).getTime()) {
+  if (
+    new Date(selectDate[0].value).getTime() > 
+    new Date(selectDate[1].value).getTime()
+  ) {
     wrong = true;
   } else wrong = false;
 };
 
-temp[0].addEventListener("change", () => {
+// When user change the date, datechange++.
+// when datechange > 1, validate the date
+selectDate[0].addEventListener("change", () => {
   dateChange++;
   dateChange > 1 ? validateDate() : null;
 });
 
-temp[1].addEventListener("change", () => {
+selectDate[1].addEventListener("change", () => {
   dateChange++;
   dateChange > 1 ? validateDate() : null;
 });
 
+// If wrong == true -> due date > start date
 form.addEventListener("submit", (e) => {
   if (wrong) {
     e.preventDefault();
