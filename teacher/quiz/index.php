@@ -73,7 +73,6 @@ if (isset($_POST['btnAddQuiz'])) {
         <textarea name="description-1" rows="2" placeholder="Question Description" required></textarea>
         <div class="form-select">
           <select name="lvlOption-1">
-            <option style="display: none">Level:</option>
             <option value="1">Easy</option>
             <option value="2">Medium</option>
             <option value="3">Hard</option>
