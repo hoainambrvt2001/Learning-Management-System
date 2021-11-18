@@ -23,6 +23,8 @@ if (isset($_GET["page"])) {
 if ($page == 'course') {
   $_SESSION['courseId'] = false;
   $_SESSION['courseName'] = false;
+  $_SESSION['quizId'] = false;
+  $_SESSION['quizName'] = false;
 }
 if ($page == 'quiz') {
   $_SESSION['quizId'] = false;
