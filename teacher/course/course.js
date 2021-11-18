@@ -75,7 +75,7 @@ for (let i = 0; i < length; i++) {
 for (let i = 0; i < length; i++) {
   remove[i].addEventListener("click", () => {
     let input = formWrapper[1].getElementsByTagName("input");
-    input[1].value = card[i].querySelector("input").value;
+    input[0].value = card[i].querySelector("input").value;
     formWrapper[1].style.opacity = 1;
     formWrapper[1].style.zIndex = 10;
   });
