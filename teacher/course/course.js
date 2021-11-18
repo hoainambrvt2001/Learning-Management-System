@@ -4,7 +4,7 @@ let form = document.querySelector(".form-course");
 let toggle = false;
 let height = window.innerWidth < 768 ? "180px" : "170px";
 
-// reset state when resize
+// Reset state when resize
 window.addEventListener("resize", () => {
   toggle = false;
   form.style.opacity = 0;
@@ -13,7 +13,7 @@ window.addEventListener("resize", () => {
   height = window.innerWidth < 768 ? "180px" : "170px";
 });
 
-// create button event in add course form
+// Create button event in add course form
 createBtn.addEventListener("click", () => {
   toggle = !toggle;
   if (toggle) {
@@ -82,12 +82,12 @@ for (let i = 0; i < length; i++) {
 }
 
 // Add cancel button eventlistener for all popup form
-formWrapper[0].querySelector(".cancel").addEventListener("click", (e) => {
+formWrapper[0].querySelector(".cancel").addEventListener("click", () => {
   formWrapper[0].style.opacity = 0;
   formWrapper[0].style.zIndex = -1;
 });
 
-formWrapper[1].querySelector(".cancel").addEventListener("click", (e) => {
+formWrapper[1].querySelector(".cancel").addEventListener("click", () => {
   formWrapper[1].style.opacity = 0;
   formWrapper[1].style.zIndex = -1;
 });
