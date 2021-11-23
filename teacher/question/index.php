@@ -9,7 +9,7 @@ if (isset($_POST['btnAddQuestion'])) {
     htmlspecialchars($_POST['add-option2']),
     htmlspecialchars($_POST['add-option3']),
     htmlspecialchars($_POST['add-option4']),
-    $_POST['add-lvlOption'],
+    $_POST['add-lvlOption']
   );
 }
 
@@ -25,7 +25,7 @@ if (isset($_POST['BtnEditQuestion'])) {
     htmlspecialchars($_POST['edit-option2']),
     htmlspecialchars($_POST['edit-option3']),
     htmlspecialchars($_POST['edit-option4']),
-    $_POST['edit-lvlOption'],
+    $_POST['edit-lvlOption']
   );
 }
 ?>
@@ -146,7 +146,7 @@ foreach ($questions as $question) {
             <input type="hidden" value="' . $question->option3 . '">
             <input type="hidden" value="' . $question->option4 . '">
             <!-- This is the level -->
-            <input type="hidden" value="2" >
+            <input type="hidden" value="' . $question->level . '" >
             
             <!-- This is the QuestionId -->
             <input type="hidden" name="questionId" value="' . $question->_id . '"> 
