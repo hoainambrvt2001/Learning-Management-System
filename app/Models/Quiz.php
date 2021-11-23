@@ -54,7 +54,7 @@ class Quiz
 
   public function addQuestion($description = "", $option1 = "", $option2 = "", $option3 = "", $option4 = "", $level = 0)
   {
-    if ($description == "" | $option1 == "" | $option2 == "" | $option3 == "" | $option4 == "") {
+    if ($description == "" | $option1 == "" | $option2 == "" | $option3 == "" | $option4 == "" | $level == 0) {
       return;
     }
 
@@ -75,7 +75,10 @@ class Quiz
 
   public function editQuestion($targetQuestionId = "", $description = "", $option1 = "", $option2 = "", $option3 = "", $option4 = "", $level = 0)
   {
-    if ($targetQuestionId == "" | $description == "" | $option1 == "" | $option2 == "" | $option3 == "" | $option4 == "") {
+    if (
+      $targetQuestionId == "" | $description == "" | $option1 == "" | $option2 == "" | $option3 == "" | $option4 == "" |
+      $level == 0
+    ) {
       return;
     }
 
