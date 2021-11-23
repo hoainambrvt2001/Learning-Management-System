@@ -24,15 +24,29 @@ if (isset($_GET["page"])) {
 
 $button = "";
 $title = "";
+
 if ($page == "course") {
   $button = "Create a course";
   $title = "All courses";
 } else if ($page == "quiz") {
+  if (!$_SESSION['courseId']) {
+    header('Location: ./?page=course');
+  }
   $button = "Add a quiz";
   $title = "All quizzes";
 } else if ($page == "question") {
+  if (!$_SESSION['quizId'] | !$_SESSION['courseId']) {
+    header('Location: ./?page=course');
+  }
   $button = "Add a question";
+} else if ($page == "result") {
+  if (!$_SESSION['quizId'] | !$_SESSION['courseId']) {
+    header('Location: ./?page=course');
+  }
+} else {
+  header('Location: ./');
 }
+
 ?>
 
 <?php
