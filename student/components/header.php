@@ -39,7 +39,7 @@
               <a class="nav-link" href="quiz.php">Quiz Time</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="module.php">Your Modules</a>
+              <a class="nav-link" href="module.php">Your quizzes</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="viewscore.php">View Score</a>

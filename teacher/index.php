@@ -1,11 +1,34 @@
 <?php
 session_start();
 
-// $_SESSION['teacherID'] = "TC-345678912";
-// $_SESSION['courseID'] = 'CO3001';
-// $_SESSION['quizID'] = '617a6de6fc13ae3d9c000006';
+if (isset($_POST['btnCourseId'])) {
+  $_SESSION['courseId'] = $_POST['courseId'];
+  if ($_GET['courseName']) $_SESSION['courseName'] = $_GET['courseName'];
+}
 
-$page = "result";
+if (isset($_POST['btnQuizId'])) {
+  $_SESSION['quizId'] = $_POST['quizId'];
+  if ($_GET['quizName']) $_SESSION['quizName'] = $_GET['quizName'];
+}
+
+# Update page:
+$page = "course";
+if (isset($_GET["page"])) {
+  $page = $_GET["page"];
+}
+
+# Update courseName/Id and quizName/Id
+if ($page == 'course') {
+  $_SESSION['courseId'] = false;
+  $_SESSION['courseName'] = false;
+  $_SESSION['quizId'] = false;
+  $_SESSION['quizName'] = false;
+}
+if ($page == 'quiz') {
+  $_SESSION['quizId'] = false;
+  $_SESSION['quizName'] = false;
+}
+
 $button = "";
 $title = "";
 if ($page == "course") {
@@ -20,15 +43,13 @@ if ($page == "course") {
 ?>
 
 <?php
-    // session_start();
-
-    if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
-        header('Location: ../login/');
-    } else {
-        if (isset($_SESSION['isStudent']) && $_SESSION['isStudent'] == true){
-            header('Location: ../student/');
-        }
-    }
+if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+  header('Location: ../login/');
+} else {
+  if (isset($_SESSION['isStudent']) && $_SESSION['isStudent'] == true) {
+    header('Location: ../student/');
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,12 +61,16 @@ if ($page == "course") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="">
   <title>Home</title>
+  <?php
+  if ($page == "result") echo "
+      <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+      <link href='http://www.jqueryscript.net/css/jquerysctipttop.css' rel='stylesheet' type='text/css'>
+    ";
+  ?>
   <link rel="stylesheet" href="./teacher.css">
   <link rel="stylesheet" href="./<?php echo "$page/$page"; ?>.css">
-  <link rel="stylesheet" href="./responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
-  
+
 </head>
 
 <body>
@@ -68,14 +93,25 @@ if ($page == "course") {
               <div class="menu-line"></div>
               <div class="menu-line"></div>
             </div>
-            <p>Your courses</p>
+            <!-- Path -->
+            <p>Your courses
+              <?php
+              if ($_SESSION['courseId']) {
+                echo ' > ' . $_SESSION['courseName'];
+              }
+              if ($_SESSION['quizId']) {
+                echo ' > ' . $_SESSION['quizName'];
+              }
+              if ($page == "result") echo " > View result";
+              ?>
+            </p>
           </div>
           <div class="menu-list">
 
           </div>
           <div class="nav-right">
             <?php
-              if ($page != "result") echo "
+            if ($page != "result") echo "
               <div class='create-btn'>
                 <p>$button</p>
               </div>
@@ -86,7 +122,9 @@ if ($page == "course") {
       </nav>
       <div class="content-wrapper">
         <?php
-        // require "../database/connectDB.php";
+        require "../app/Models/Teacher.php";
+        require "../app/Models/Course.php";
+        require "../app/Models/Quiz.php";
         include "./$page/index.php";
         ?>
       </div>

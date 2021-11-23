@@ -38,12 +38,12 @@
 
                         $post = $db->quiz;
 
-                        $results = $post->findOne(['quizID'=>$quizID]);
+                        $results = $post->findOne(['quizId'=>$quizID]);
 
                         if (empty($results)){
                             echo '<p>No quiz found!<p>';
                         } else {
-                            header('Location: ./gamescreen.php?id='.$quizID);
+                            header('Location: ./game.php?id='.$quizID);
                         }
                     }
                 ?>

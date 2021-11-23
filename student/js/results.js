@@ -1,15 +1,15 @@
 'use strict';
 
-const storedCorrect = JSON.parse(localStorage.getItem("correctCounter"))
-const displayTable = document.getElementById('fullResults')
-console.log(storedCorrect)
-const resultsButton = document.getElementById('moreResults')
-let somethingElse = JSON.parse(localStorage.getItem('questions'))
-const playAgain = document.getElementById('playAgain')
+// const storedCorrect = JSON.parse(localStorage.getItem("correctCounter"))
+// const displayTable = document.getElementById('fullResults')
+// console.log(storedCorrect)
+// const resultsButton = document.getElementById('moreResults')
+// let somethingElse = JSON.parse(localStorage.getItem('questions'))
+// const playAgain = document.getElementById('playAgain')
 
-const resultDiv = document.getElementById('result')
-const funnyStatement = document.getElementById('funny')
-const y = (storedCorrect/somethingElse.length)
+// const resultDiv = document.getElementById('result')
+// const funnyStatement = document.getElementById('funny')
+//const y = (storedCorrect/somethingElse.length)
 
 const clickSound2= document.getElementById("click");
 function playClick() {
@@ -65,48 +65,48 @@ function pause() {
 })()
 
 //fills in the table data from your results
-document.addEventListener('DOMContentLoaded', ()=>{
+// document.addEventListener('DOMContentLoaded', ()=>{
     
-    const answerArr = JSON.parse(localStorage.getItem("answerArr"))
-    const somethingElse = JSON.parse(localStorage.getItem('questions'))
-    const tableBody = document.getElementById('tableBody')
-    console.log(answerArr)
-    console.log(somethingElse)
-    answerArr.forEach(function(ans, index) {
-        const tableRow = document.createElement('tr')
-        tableBody.appendChild(tableRow)
-        if (somethingElse[index].correct_answer !== answerArr[index]) {
-            tableRow.classList.toggle('wrong')
-        } else {tableRow.classList.toggle('right')}
-        let dataArray = [somethingElse[index].question,answerArr[index], somethingElse[index].correct_answer]
-        dataArray.forEach(function(item,index){
-            const tableData = document.createElement('td')
-            tableRow.appendChild(tableData)
-            tableData.innerHTML = dataArray[index]
-            if (index === 0){
-                tableData.classList.toggle('questionColumn')
-            }   
-            })
-        });
-    })
+//     const answerArr = JSON.parse(localStorage.getItem("answerArr"))
+//     const somethingElse = JSON.parse(localStorage.getItem('questions'))
+//     const tableBody = document.getElementById('tableBody')
+//     console.log(answerArr)
+//     console.log(somethingElse)
+//     answerArr.forEach(function(ans, index) {
+//         const tableRow = document.createElement('tr')
+//         tableBody.appendChild(tableRow)
+//         if (somethingElse[index].correct_answer !== answerArr[index]) {
+//             tableRow.classList.toggle('wrong')
+//         } else {tableRow.classList.toggle('right')}
+//         let dataArray = [somethingElse[index].question,answerArr[index], somethingElse[index].correct_answer]
+//         dataArray.forEach(function(item,index){
+//             const tableData = document.createElement('td')
+//             tableRow.appendChild(tableData)
+//             tableData.innerHTML = dataArray[index]
+//             if (index === 0){
+//                 tableData.classList.toggle('questionColumn')
+//             }   
+//             })
+//         });
+//     })
 //toggles the table
-const myFunction = () => {
-        if (displayTable.style.display == "none") {
-            displayTable.style.display = "inline";
-        } else {
-            displayTable.style.display = "none";
-        }
-    }
+// const myFunction = () => {
+//         if (displayTable.style.display == "none") {
+//             displayTable.style.display = "inline";
+//         } else {
+//             displayTable.style.display = "none";
+//         }
+//     }
 
-resultsButton.addEventListener('click', e=>{
-    e.preventDefault()
-    playClick()
-    myFunction()
-    const footerStyle = document.getElementById('footer')
-    footerStyle.classList.toggle('extra_detail')
-})
-playAgain.addEventListener('click', e=>{
-    e.preventDefault()
-    playClick()
-    let nextPage = setTimeout(function(){window.location.replace('selection.html')},1000)
-})
+// resultsButton.addEventListener('click', e=>{
+//     e.preventDefault()
+//     playClick()
+//     myFunction()
+//     const footerStyle = document.getElementById('footer')
+//     footerStyle.classList.toggle('extra_detail')
+// })
+// playAgain.addEventListener('click', e=>{
+//     e.preventDefault()
+//     playClick()
+//     let nextPage = setTimeout(function(){window.location.replace('selection.html')},1000)
+// })
