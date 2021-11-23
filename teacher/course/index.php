@@ -1,91 +1,20 @@
 <?php
-function random_course_id()
-{
-  $chars = "C-";
-  $numbers = "0123456789";
-  $courseId =  $chars . substr(str_shuffle($numbers), 0, 10);
-  return $courseId;
-}
-
-// Get course collection:
-$courseCollection = $mydb->course;
+// Create new teacher object:
+$teacher = new Teacher($_SESSION["teacherId"]);
 
 // Handle submit add course:
 if (isset($_POST['btnAddCourse'])) {
-  $courseName = $_POST['ipCourseName'];
-  if (!$courseName)
-    echo "Course's name must not be empty";
-
-  // Create new course id by random function:
-  $newCourseId = random_course_id();
-
-  // Add new course to Course collection: 
-  $addResult = $courseCollection->insertOne([
-    'courseId' => $newCourseId,
-    'name' => $courseName,
-    'year' => date("Y"),
-  ]);
-
-  // Get teacher collection:
-  $teacherCollection = $mydb->teacher;
-
-  // Get updates courseIds for teacher:
-  $teacher = $teacherCollection->findOne(['teacherId' => $_SESSION["teacherId"]]);
-  $teacherCourseIds = iterator_to_array($teacher->courseIds);
-  array_push($teacherCourseIds, $newCourseId);
-
-  // Update to teacher collection:
-  $updateResult = $teacherCollection->updateOne(
-    ['teacherId' => $teacher->teacherId],
-    ['$set' => ['courseIds' => $teacherCourseIds]]
-  );
+  $teacher->addCourse($_POST['ipCourseName']);
 }
 
 // Handle edit courseName
 if (isset($_POST['btnEditCourseName'])) {
-  // Update courseName:
-  $updateResult = $courseCollection->updateOne(
-    ['courseId' => $_POST['courseId']],
-    ['$set' => ['name' => $_POST['ipEditCourseName']]]
-  );
+  $teacher->editCourseName($_POST['courseId'], $_POST['ipEditCourseName']);
 }
 
 // Handle delete course
 if (isset($_POST['btnDeleteCourse'])) {
-  $targetCourseId = $_POST['courseId'];
-
-  // Get all needed collection:
-  $quizCollection = $mydb->quiz;
-  $markCollection = $mydb->mark;
-  $questionCollection = $mydb->question;
-  $teacherCollection = $mydb->teacher;
-
-  // Get all quiz that course has:
-  $quizzes = $quizCollection->find(['courseId' => $targetCourseId]);
-
-  // Delete all marks and questions:
-  foreach ($quizzes as $quiz) {
-    $markCollection->deleteMany([
-      'quizId' => $quiz->quizId
-    ]);
-    $questionCollection->deleteMany([
-      'quizId' => $quiz->quizId
-    ]);
-  }
-
-  // Delete all quizzes and courseId:
-  $quizCollection->deleteMany(['courseId' => $targetCourseId]);
-  $courseCollection->deleteOne(['courseId' => $targetCourseId]);
-
-  // Update courseIds for teacher:
-  $teacher = $teacherCollection->findOne(['teacherId' => $_SESSION["teacherId"]]);
-  $teacherCourseIds = iterator_to_array($teacher->courseIds);
-  $targetCoursePosition = array_search($targetCourseId, $teacherCourseIds);
-  array_splice($teacherCourseIds, $targetCoursePosition, 1);
-  $teacherCollection->updateOne(
-    ['teacherId' => $teacher->teacherId],
-    ['$set' => ['courseIds' => $teacherCourseIds]]
-  );
+  $teacher->deleteCourse($_POST['courseId']);
 }
 ?>
 
@@ -135,20 +64,11 @@ if (isset($_POST['btnDeleteCourse'])) {
 
 <div class="content-container">
   <?php
-  // Get teacher and course collections
-  $teacherCollection = $mydb->teacher;
-  $courseCollection = $mydb->course;
+  // Create new teacher object:
+  $teacher = new Teacher($_SESSION["teacherId"]);
 
-  // Get courseIds created by teacher
-  $teacher = $teacherCollection->findOne(['teacherId' => $_SESSION["teacherId"]]);
-  $courseIds = $teacher->courseIds;
-
-  // Loop to get courses created by teacher
-  $teacherCourses = array();
-  foreach ($courseIds as $courseId) {
-    $course = $courseCollection->findOne(['courseId' => $courseId]);
-    array_push($teacherCourses, $course);
-  }
+  // Get teacher courses:
+  $teacherCourses = $teacher->getAllCoursesBelongsTo();
 
   // Render courses to card
   foreach ($teacherCourses as $teacherCourse) {
@@ -174,6 +94,7 @@ if (isset($_POST['btnDeleteCourse'])) {
       </form> 
     ";
   }
+  // }
   ?>
 </div>
 <script src="./course/course.js"></script>

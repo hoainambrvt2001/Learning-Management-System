@@ -1,75 +1,36 @@
 <?php
-// Get quiz collection:
-$questionCollection = $mydb->question;
-$quizCollection =  $mydb->quiz;
 
-// Random Quiz ID:
-function random_quiz_id()
-{
-  $chars = "Q-";
-  $numbers = "0123456789";
-  $quizId = $chars . substr(str_shuffle($numbers), 0, 10);
-  return $quizId;
-};
+// Create new course object:
+$course = new Course($_SESSION['courseId'], $_SESSION['teacherId']);
 
 if (isset($_POST['btnAddQuiz'])) {
-  // Insert Quiz
-  $quizId = random_quiz_id();
-  $insertQuiz = $quizCollection->insertOne([
-    'quizId' => $quizId,
-    'teacherId' => $_SESSION['teacherId'],
-    'courseId' => $_SESSION['courseId'],
-    'name' => $_POST['quizName'],
-    'startDate' => $_POST['startDate'],
-    'dueDate' => $_POST['dueDate'],
-  ]);
+  // Insert new quiz:
+  $insertQuizResult = $course->addQuiz($_POST['quizName'], $_POST['startDate'], $_POST['dueDate']);
 
-  $countQuestions = (int) $_POST['countQuestions'];
-  // Insert Questions:
-  for ($i = 0; $i < $countQuestions; $i++) {
-    $insertQuestion = $questionCollection->insertOne([
-      'questionNumber' => $i + 1,
-      'quizId' => $quizId,
-      'courseId' => $_SESSION['courseId'],
-      'description' => htmlspecialchars($_POST['description-' . $i + 1]),
-      'option1' => htmlspecialchars($_POST['option1-' . $i + 1]),
-      'option2' => htmlspecialchars($_POST['option2-' . $i + 1]),
-      'option3' => htmlspecialchars($_POST['option3-' . $i + 1]),
-      'option4' => htmlspecialchars($_POST['option4-' . $i + 1]),
-      'level' => $_POST['lvlOption-' . $i + 1],
-      'unitScore' => (int) $_POST['lvlOption-' . $i + 1] * 10,
-    ]);
+  // Take quizId of new quiz:
+  $newQuizId = $insertQuizResult[1];
+
+  // Insert questions to new quiz:
+  $newQuiz = new Quiz($_SESSION['courseId'], $newQuizId);
+  $numbersOfQuestion = (int) $_POST['countQuestions'];
+  for ($i = 0; $i < $numbersOfQuestion; $i++) {
+    $newQuiz->addQuestion(
+      htmlspecialchars($_POST['description-' . $i + 1]),
+      htmlspecialchars($_POST['option1-' . $i + 1]),
+      htmlspecialchars($_POST['option2-' . $i + 1]),
+      htmlspecialchars($_POST['option3-' . $i + 1]),
+      htmlspecialchars($_POST['option4-' . $i + 1]),
+      $_POST['lvlOption-' . $i + 1]
+    );
   }
 }
 
 if (isset($_POST['btnEditQuiz'])) {
-  $quizCollection->updateOne(
-    ['quizId' => $_POST['quizId']],
-    ['$set' => [
-      'name' => $_POST['editQuizName'],
-      'startDate' => $_POST['editStartDate'],
-      'dueDate' => $_POST['editDueDate']
-    ]]
-  );
+  $course->editQuiz($_POST['quizId'], $_POST['editQuizName'], $_POST['editStartDate'], $_POST['editDueDate']);
 }
 
 if (isset($_POST['btnDeleteQuiz'])) {
-  $targetQuizId = $_POST['quizId'];
-
-  // Get all needed collection:
-  $markCollection = $mydb->mark;
-  $questionCollection = $mydb->question;
-
-  // Delete all marks and questions related to quizId:
-  $markCollection->deleteMany([
-    'quizId' => $targetQuizId
-  ]);
-  $questionCollection->deleteMany([
-    'quizId' => $targetQuizId
-  ]);
-
-  // Delete all quizzes and courseId:
-  $quizCollection->deleteOne(['quizId' => $targetQuizId]);
+  $course->deleteQuiz($_POST['quizId']);
 }
 
 ?>
@@ -188,11 +149,11 @@ if (isset($_POST['btnDeleteQuiz'])) {
 
 <div class="content-container">
   <?php
-  // Get quiz collections
-  $quizCollection = $mydb->quiz;
+  // Create new course object:
+  $course = new Course($_SESSION["courseId"], $_SESSION["teacherId"]);
 
   // Get quizzes based on courseID and teacherID
-  $quizzes = $quizCollection->find(['courseId' => $_SESSION["courseId"], 'teacherId' => $_SESSION["teacherId"]]);
+  $quizzes = $course->getAllQuizzesBelongsTo();
 
   foreach ($quizzes as $quiz) {
     echo '<form class="card" action="./?page=question&quizName=' . $quiz->name . '" method="POST">

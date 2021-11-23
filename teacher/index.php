@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-$_SESSION['teacherId'] = "TC-4203517869";
-
 if (isset($_POST['btnCourseId'])) {
   $_SESSION['courseId'] = $_POST['courseId'];
   if ($_GET['courseName']) $_SESSION['courseName'] = $_GET['courseName'];
@@ -45,13 +43,13 @@ if ($page == "course") {
 ?>
 
 <?php
-// if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
-//     header('Location: ../login/');
-// } else {
-//     if (isset($_SESSION['isStudent']) && $_SESSION['isStudent'] == true){
-//         header('Location: ../student/');
-//     }
-// }
+if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+  header('Location: ../login/');
+} else {
+  if (isset($_SESSION['isStudent']) && $_SESSION['isStudent'] == true) {
+    header('Location: ../student/');
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -124,8 +122,9 @@ if ($page == "course") {
       </nav>
       <div class="content-wrapper">
         <?php
-        require "../database/connectDatabase.php";
-        $mydb = $client->data;
+        require "../app/Models/Teacher.php";
+        require "../app/Models/Course.php";
+        require "../app/Models/Quiz.php";
         include "./$page/index.php";
         ?>
       </div>

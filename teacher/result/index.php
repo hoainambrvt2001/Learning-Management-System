@@ -18,12 +18,14 @@
           <table id="tableData">
             <tbody>
               <?php
-              // Get collections
-              $markCollection = $mydb->mark;
-              $studentCollection = $mydb->student;
+              // Create new quiz object:
+              $quiz = new Quiz($_SESSION["courseId"], $_SESSION["quizId"]);
+
+              // Get student collections
+              $studentCollection = $quiz->getDtb()->studentCollection;
 
               // Get marks of the quiz:
-              $marks = $markCollection->find(['quizId' => $_SESSION["quizId"]]);
+              $marks = $quiz->getAllMarksBelongsTo();
 
               $index = 0;
               foreach ($marks as $mark) {
