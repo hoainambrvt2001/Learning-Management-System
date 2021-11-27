@@ -44,7 +44,7 @@ class Course
 
   public function addQuiz($quizName = "", $startDate = "", $dueDate = "")
   {
-    if ($quizName == "" | $startDate == "" | $dueDate == "") {
+    if ($quizName == "" || $startDate == "" || $dueDate == "") {
       return;
     }
 
@@ -65,7 +65,7 @@ class Course
 
   public function editQuiz($targetQuizId = "", $quizName = "", $startDate = "", $dueDate = "")
   {
-    if ($targetQuizId == "" | $quizName == "" | $startDate == "" | $dueDate == "") {
+    if ($targetQuizId == "" || $quizName == "" || $startDate == "" || $dueDate == "") {
       return;
     }
 

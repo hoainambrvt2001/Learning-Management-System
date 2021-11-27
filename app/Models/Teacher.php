@@ -79,7 +79,7 @@ class Teacher
 
   public function editCourseName($targetCourseId = "", $courseName = "")
   {
-    if ($targetCourseId == "") return;
+    if ($targetCourseId == "" || $courseName == "") return;
 
     // Update courseName:
     $updateResult = $this->dtb->courseCollection->updateOne(
