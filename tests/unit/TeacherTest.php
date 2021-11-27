@@ -29,19 +29,20 @@ class TeacherTest extends \PHPUnit\Framework\TestCase
 
   public function TestCRUDofCourse()
   {
+
     // Insert new course:
     $insertCourseResult = $this->teacher->addCourse('Web Programming');
-    $this->assertEquals($insertCourseResult[1], array(1, 1, 1));
+    $this->assertEquals($insertCourseResult[1], true);
 
     // Get new course's id:
     $newCourseId = $insertCourseResult[0];
 
     // Edit course name:
     $editCourseName = $this->teacher->editCourseName($newCourseId, 'Data Structure');
-    $this->assertEquals($editCourseName, array(1, 1));
+    $this->assertEquals($editCourseName, true);
 
     // Delete course:
     $deleteCourseResult = $this->teacher->deleteCourse($newCourseId);
-    $this->assertEquals($deleteCourseResult, array(1, 1, 1));
+    $this->assertEquals($deleteCourseResult, true);
   }
 }

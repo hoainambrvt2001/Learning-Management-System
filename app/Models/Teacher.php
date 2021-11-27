@@ -73,7 +73,7 @@ class Teacher
       ['$set' => ['courseIds' => $this->courseIds]]
     );
 
-    return [$newCourseId, array($addResult->getInsertedCount(), $updateResult->getMatchedCount(), $updateResult->getModifiedCount())];
+    return [$newCourseId, $addResult->isAcknowledged() && $updateResult->isAcknowledged()];
   }
 
   public function editCourseName($targetCourseId = "", $courseName = "")
@@ -86,7 +86,7 @@ class Teacher
       ['$set' => ['name' => $courseName]]
     );
 
-    return array($updateResult->getMatchedCount(), $updateResult->getModifiedCount());
+    return $updateResult->isAcknowledged();
   }
 
   public function deleteCourse($targetCourseId = "")
@@ -97,27 +97,29 @@ class Teacher
     $quizzes = $this->dtb->quizCollection->find(['courseId' => $targetCourseId]);
 
     // Delete all marks and questions:
+    $deleteQuestionsAndMarksResult = true;
     foreach ($quizzes as $quiz) {
-      $this->dtb->markCollection->deleteMany([
+      $deleteQuestionResult = $this->dtb->markCollection->deleteMany([
         'quizId' => $quiz->quizId
       ]);
-      $this->dtb->questionCollection->deleteMany([
+      $deleteMarkResult = $this->dtb->questionCollection->deleteMany([
         'quizId' => $quiz->quizId
       ]);
+      $deleteQuestionsAndMarksResult = $deleteQuestionsAndMarksResult && $deleteMarkResult->isAcknowledged() && $deleteQuestionResult->isAcknowledged();
     }
 
     // Delete all quizzes and courseId:
-    $this->dtb->quizCollection->deleteMany(['courseId' => $targetCourseId]);
-    $deleteResult  = $this->dtb->courseCollection->deleteOne(['courseId' => $targetCourseId]);
+    $deleteQuizzesResult = $this->dtb->quizCollection->deleteMany(['courseId' => $targetCourseId]);
+    $deleteCourseResult  = $this->dtb->courseCollection->deleteOne(['courseId' => $targetCourseId]);
 
     // Update courseIds for teacher:
     $targetCoursePosition = array_search($targetCourseId, $this->courseIds);
     array_splice($this->courseIds, $targetCoursePosition, 1);
-    $updateResult = $this->dtb->teacherCollection->updateOne(
+    $updateCourseIdsOfTeacher = $this->dtb->teacherCollection->updateOne(
       ['teacherId' => $this->teacherId],
       ['$set' => ['courseIds' => $this->courseIds]]
     );
 
-    return array($deleteResult->getDeletedCount(), $updateResult->getMatchedCount(), $updateResult->getModifiedCount());
+    return $deleteQuestionsAndMarksResult && $deleteQuizzesResult->isAcknowledged() && $deleteCourseResult->isAcknowledged() && $updateCourseIdsOfTeacher->isAcknowledged();
   }
 }

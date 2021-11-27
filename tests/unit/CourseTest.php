@@ -29,7 +29,7 @@ class CourseTest extends \PHPUnit\Framework\TestCase
       "2021-11-30",
       "2021-12-1",
     );
-    $this->assertEquals($addQuizResult[0], 1);
+    $this->assertEquals($addQuizResult[0], true);
 
     // Test edit quiz:
     $editQuizResult = $this->course->editQuiz(
@@ -38,10 +38,10 @@ class CourseTest extends \PHPUnit\Framework\TestCase
       "2021-11-30",
       "2021-12-1",
     );
-    $this->assertEquals($editQuizResult, array(1, 1));
+    $this->assertEquals($editQuizResult, true);
 
     // Test delete quiz:
     $deleteQuizResult = $this->course->deleteQuiz($addQuizResult[1]);
-    $this->assertEquals($deleteQuizResult, array(0, 0, 1));
+    $this->assertEquals($deleteQuizResult, true);
   }
 }

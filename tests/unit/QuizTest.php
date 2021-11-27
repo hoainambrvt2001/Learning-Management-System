@@ -52,7 +52,7 @@ class QuizTest extends \PHPUnit\Framework\TestCase
       "Font:align-center;",
       2,
     );
-    $this->assertEquals($insertQuestionResult, 1);
+    $this->assertEquals($insertQuestionResult, true);
 
     // Find inserted question
     $insertedQuestion = $this->quiz->getQuestionByDescription("What is the correct format for aligning written content to the center of the page in CSS?");
@@ -67,10 +67,10 @@ class QuizTest extends \PHPUnit\Framework\TestCase
       "Div.example",
       1,
     );
-    $this->assertEquals($updatedQuestionResult, array(1, 1));
+    $this->assertEquals($updatedQuestionResult, true);
 
     // Delete question of quiz:
     $deleteQuestionResult = $this->quiz->deleteQuestion($insertedQuestion->_id);
-    $this->assertEquals($deleteQuestionResult, 1);
+    $this->assertEquals($deleteQuestionResult, true);
   }
 }

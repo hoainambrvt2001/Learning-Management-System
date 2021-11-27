@@ -70,7 +70,7 @@ class Quiz
       'unitScore' => (int) $level * 10
     ]);
 
-    return $insertQuestionResult->getInsertedCount();
+    return $insertQuestionResult->isAcknowledged();
   }
 
   public function editQuestion($targetQuestionId = "", $description = "", $option1 = "", $option2 = "", $option3 = "", $option4 = "", $level = 0)
@@ -99,7 +99,7 @@ class Quiz
       ]
     );
 
-    return array($updateQuestionResult->getMatchedCount(), $updateQuestionResult->getModifiedCount());
+    return $updateQuestionResult->isAcknowledged();
   }
 
   public function deleteQuestion($targetQuestionId = "")
@@ -112,6 +112,6 @@ class Quiz
       '_id' => new MongoDB\BSON\ObjectId($targetQuestionId)
     ]);
 
-    return $deleteQuestionResult->getDeletedCount();
+    return $deleteQuestionResult->isAcknowledged();
   }
 }
