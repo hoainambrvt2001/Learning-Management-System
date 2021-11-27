@@ -48,23 +48,6 @@ echo "<button id=\"printPageButton\" onclick=\"printPage()\">Download PDF</butto
     <p id = \"last-option\">D. ".$question->option4."</p>
   </div>";
   
-  echo "
-    <div>
-    <p><span>Question $idx:</span> ".$question->description."?</p>
-    <p class=\"correct\">A. ".$question->option1."</p>
-    <p>B. ".$question->option2."</p>
-    <p>C. ".$question->option3."</p>
-    <p \"last-option\">D. ".$question->option4."</p>
-  </div>";
-
-  echo "
-    <div>
-    <p><span>Question $idx:</span> ".$question->description."?</p>
-    <p class=\"correct\">A. ".$question->option1."</p>
-    <p>B. ".$question->option2."</p>
-    <p>C. ".$question->option3."</p>
-    <p \"last-option\">D. ".$question->option4."</p>
-  </div>";
   $idx++;
   }
 // Test fetching
