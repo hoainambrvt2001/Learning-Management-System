@@ -60,6 +60,7 @@ class Teacher
     // Add new course to Course collection: 
     $addResult = $this->dtb->courseCollection->insertOne([
       'courseId' => $newCourseId,
+      'teacherId' => $this->teacherId,
       'name' => $courseName,
       'year' => date("Y"),
     ]);
