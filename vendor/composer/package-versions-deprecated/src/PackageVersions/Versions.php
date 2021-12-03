@@ -71,7 +71,7 @@ final class Versions
   'symfony/polyfill-php80' => 'v1.23.1@1100343ed1a92e3a38f9ae122fc0eb21602547be',
   'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
   'webmozart/assert' => '1.10.0@6964c76c7804814a842473e0c8fd15bab0f18e25',
-  '__root__' => 'dev-main@e9803b74d4e2ef1e8598cd1487707bd17f0d3cce',
+  '__root__' => 'dev-main@681f7b1f9a974a98094fca76c23d9b0b9fc62227',
 );
 
     private function __construct()
