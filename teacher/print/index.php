@@ -6,7 +6,6 @@
   $questions = $questionCollection->find(['quizId'=> $_SESSION["quizId"]]);
   $courseName = $course->name;
   $quizName = $quiz->name;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +40,7 @@ echo "<button id=\"printPageButton\" onclick=\"printPage()\">Download PDF</butto
   foreach($questions as $question){
     echo "
     <div >
-    <p><span>Question $idx:</span> ".$question->description."?</p>
+    <p><span>Question $idx:</span> ".$question->description."</p>
     <p class=\"correct\">A. ".$question->option1."</p>
     <p>B. ".$question->option2."</p>
     <p>C. ".$question->option3."</p>
@@ -58,115 +57,8 @@ echo "<button id=\"printPageButton\" onclick=\"printPage()\">Download PDF</butto
 // Test fetching
   
 ?>
-<!-- <body> 
-  <h1>Course: {Course name} - Quiz: {Quiz name}</h1>
-  <button id="printPageButton" onclick="printPage()">Download PDF</button>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
-  <div>
-    <p><span>Question 1:</span> ADSDWASDZXCACWQ ?</p>
-    <p class="correct">A. ADWDOZXIC</p>
-    <p>B. OZIXCWQL</p>
-    <p>C. CZOXICQLWE</p>
-    <p>D. Nam Vo</p>
-  </div>
+  
 </body>
-</html> -->
+</html>
 
 

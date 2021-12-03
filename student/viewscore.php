@@ -20,7 +20,13 @@
 
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <title>View Score</title>
+  <title>QUIZ - View All Of Your Scores</title>
+
+  <meta name="description" content="Try Your Best and Do Better · Full View Of Your Progress · Sign up to test yourself!">
+              
+    <meta name="keywords" content="quiz, quizz, quizzes, quiz.com, quiz.com score, www.quiz.com, www.quiz.com score, quiz.com website, quiz scores, quiz score, quiz results, 
+                                 result student, result quiz student, result quizzes student, student quiz result, your quiz result, view score quiz, quiz view score
+                                quizzes score, quiz scores">
 
   <link rel="stylesheet" href="css/maicons.css">
 
@@ -76,7 +82,7 @@
                   </div>
                 </div>
                 <div class="body">
-                  <h5 class="post-title">'.getQuiz($row->quizId)->name.'</h5>
+                  <h5 class="post-title">'.$getQuizInfo->name.'</h5>
                   <p class="post-date">Course: <a href="search_processing.php?item='.getCourse($getQuizInfo->courseId)->name.'">'.getCourse($getQuizInfo->courseId)->name.'</a> ('.$getQuizInfo->courseId.')</p>
                   <p class="post-date">Created by: <a href="search_processing.php?item='.getTeacher($getQuizInfo->teacherId)->name.'">'.getTeacher($getQuizInfo->teacherId)->name.'</a></p>
                   <p class="post-date" style="color:green">Score: '.$row->score.'</p>

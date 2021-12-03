@@ -61,16 +61,54 @@ if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="">
-  <title>Home</title>
+  <meta name="description" content="The effective online-quiz system for schools to create, manage and take online quizzes·                             Suitable for any devices · Sign up for free!">
   <?php
-  if ($page == "result") echo "
+  if ($page == "course"){
+    echo '
+    <title>QUIZ - Teacher - Course </title>
+    <meta name="keywords" content="quiz, quizz, quizzes, quiz.com, www.quiz.com, quiz.com website, online quiz, join quiz, do quiz
+                                 quiz login, quiz teacher, quiz teacher login, quiz teacher course">
+    ';
+  }
+  else if ($page == "quiz"){
+    echo '
+    <title>QUIZ - Teacher - Quiz </title>
+    <meta name="keywords" content="quiz, quizz, quizzes, quiz.com, www.quiz.com, quiz.com website, online quiz, join quiz, do quiz
+                                 quiz login, quiz teacher, quiz teacher login, quiz teacher quiz">
+    ';
+  }
+  else if ($page == "question"){
+    echo '
+    <title>QUIZ - Teacher - Question </title>
+    <meta name="keywords" content="quiz, quizz, quizzes, quiz.com, www.quiz.com, quiz.com website, online quiz, join quiz, do quiz
+                                 quiz login, quiz teacher, quiz teacher login, quiz teacher question, question">
+    ';
+  }
+  else if ($page == "result") {
+    echo "
       <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
       <link href='http://www.jqueryscript.net/css/jquerysctipttop.css' rel='stylesheet' type='text/css'>
     ";
+    echo '
+    <title>QUIZ - Teacher - Students result </title>
+    <meta name="keywords" content="quiz, quizz, quizzes, quiz.com, www.quiz.com, quiz.com website, online quiz, join quiz, do quiz
+                                 quiz login, quiz teacher, quiz teacher login, quiz teacher result, quiz teacher student result">
+    ';
+  }
+  else if ($page == "print"){
+    echo '
+    <title>QUIZ - Teacher - Students result </title>
+    <meta name="keywords" content="quiz, quizz, quizzes, quiz.com, www.quiz.com, quiz.com website, online quiz, join quiz, do quiz
+                                 quiz login, quiz teacher, quiz teacher login, quiz teacher print, quiz teacher PDF, quiz teacher download">
+    ';
+  }
   ?>
   <link rel="stylesheet" href="./teacher.css">
   <link rel="stylesheet" href="./<?php echo "$page/$page"; ?>.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <!-- Icon -->
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 </head>
 
