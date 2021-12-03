@@ -74,7 +74,7 @@ class Teacher
       ['$set' => ['courseIds' => $this->courseIds]]
     );
 
-    return [$newCourseId, $addResult->isAcknowledged() && $updateResult->isAcknowledged()];
+    return [[$addResult->getInsertedCount(), $updateResult->getModifiedCount()], $newCourseId];
   }
 
   public function editCourseName($targetCourseId = "", $courseName = "")
@@ -87,31 +87,35 @@ class Teacher
       ['$set' => ['name' => $courseName]]
     );
 
-    return $updateResult->isAcknowledged();
+    return $updateResult->getModifiedCount();
   }
 
   public function deleteCourse($targetCourseId = "")
   {
     if ($targetCourseId == "") return;
 
+    // Initialize return value:
+    $deletedMarks = 0;
+    $deletedQuestions = 0;
+    $deletedQuizzes = 0;
+    $deletedCourse = 0;
+
     // Get all quiz that course has:
     $quizzes = $this->dtb->quizCollection->find(['courseId' => $targetCourseId]);
 
     // Delete all marks and questions:
-    $deleteQuestionsAndMarksResult = true;
     foreach ($quizzes as $quiz) {
-      $deleteQuestionResult = $this->dtb->markCollection->deleteMany([
+      $deletedMarks += $this->dtb->markCollection->deleteMany([
         'quizId' => $quiz->quizId
-      ]);
-      $deleteMarkResult = $this->dtb->questionCollection->deleteMany([
+      ])->getDeletedCount();
+      $deletedQuestions += $this->dtb->questionCollection->deleteMany([
         'quizId' => $quiz->quizId
-      ]);
-      $deleteQuestionsAndMarksResult = $deleteQuestionsAndMarksResult && $deleteMarkResult->isAcknowledged() && $deleteQuestionResult->isAcknowledged();
+      ])->getDeletedCount();
     }
 
     // Delete all quizzes and courseId:
-    $deleteQuizzesResult = $this->dtb->quizCollection->deleteMany(['courseId' => $targetCourseId]);
-    $deleteCourseResult  = $this->dtb->courseCollection->deleteOne(['courseId' => $targetCourseId]);
+    $deletedQuizzes += $this->dtb->quizCollection->deleteMany(['courseId' => $targetCourseId])->getDeletedCount();
+    $deletedCourse += $this->dtb->courseCollection->deleteOne(['courseId' => $targetCourseId])->getDeletedCount();
 
     // Update courseIds for teacher:
     $targetCoursePosition = array_search($targetCourseId, $this->courseIds);
@@ -120,7 +124,6 @@ class Teacher
       ['teacherId' => $this->teacherId],
       ['$set' => ['courseIds' => $this->courseIds]]
     );
-
-    return $deleteQuestionsAndMarksResult && $deleteQuizzesResult->isAcknowledged() && $deleteCourseResult->isAcknowledged() && $updateCourseIdsOfTeacher->isAcknowledged();
+    return [$deletedMarks, $deletedQuestions, $deletedQuizzes, $deletedCourse, $updateCourseIdsOfTeacher->getModifiedCount()];
   }
 }

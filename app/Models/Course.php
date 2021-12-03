@@ -60,7 +60,7 @@ class Course
       'dueDate' => $dueDate,
     ]);
 
-    return array($insertQuizResult->isAcknowledged(), $quizId);
+    return array($insertQuizResult->getInsertedCount(), $quizId);
   }
 
   public function editQuiz($targetQuizId = "", $quizName = "", $startDate = "", $dueDate = "")
@@ -79,7 +79,7 @@ class Course
       ]]
     );
 
-    return $updateQuizResult->isAcknowledged();
+    return $updateQuizResult->getModifiedCount();
   }
 
   public function deleteQuiz($targetQuizId = "")
@@ -100,6 +100,6 @@ class Course
     // Delete quiz
     $deleteQuizResult = $this->dtb->quizCollection->deleteOne(['quizId' => $targetQuizId]);
 
-    return $deleteMarksResult->isAcknowledged() && $deleteQuestionsResult->isAcknowledged() && $deleteQuizResult->isAcknowledged();
+    return [$deleteMarksResult->getDeletedCount(), $deleteQuestionsResult->getDeletedCount(), $deleteQuizResult->getDeletedCount()];
   }
 }
