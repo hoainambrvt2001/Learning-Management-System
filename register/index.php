@@ -82,7 +82,7 @@ if (!isset($_SESSION['username']) or $_SESSION['username'] == NULL) {
                 $role = $_POST['role'];
                 $fullname = $_POST['fullname'];
                 $username = $_POST['username'];
-                $password = md5($_POST['password']);
+                $password = $_POST['password'];
                 $id = rand(1000000000, 10000000000);
 
                 function test_input($data)
@@ -130,7 +130,7 @@ if (!isset($_SESSION['username']) or $_SESSION['username'] == NULL) {
                                 "teacherId" => 'TC-' . (string)$id,
                                 'name' => $fullname,
                                 'username' => $username,
-                                'password' => $password,
+                                'password' => md5($password),
                                 'gender' => '',
                                 'birthday' => '',
                                 'phone' => '',
